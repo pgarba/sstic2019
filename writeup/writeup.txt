@@ -1,0 +1,6 @@
+RSA power analysis:
+python script to get the bits from the trace
+
+SecureElement:
+Valid key: 8FA4DFA9D4EDBBF0
+Pin: 646B235E
