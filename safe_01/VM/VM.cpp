@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <vector>
+#include <algorithm>
 #include "df.h"
 #include "Unwind.h"
 #include "dwarf2.h"
@@ -13,7 +15,7 @@ typedef unsigned int uint;
 typedef uint8_t undefined8;
 typedef unsigned short ushort;
 
-//#define DEBUG 1
+#define DEBUG 1
 
 /*
   Debug OUT
@@ -68,9 +70,9 @@ uint64_t geMappedBinary(const void *VA) {
 
 static inline void *read_pointer(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("MAPPED read_pointer(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_pointer(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_pointer(%016llX) = ", (uint64_t)p);
+    printDebug("result = read_pointer(0x%016llX); // = ", (uint64_t)p);
   }
 
   p = (const void *)geMappedBinary(p);
@@ -83,9 +85,9 @@ static inline void *read_pointer(const void *p) {
 static inline int read_1u(const void *p) {
   if (isBinaryVA(p)) {
     uint64_t B_VA = (uint64_t)getBinaryVA(p);
-    printDebug("read_1u(0x%016llX) = ", B_VA);
+    printDebug("result = read_1u(0x%016llX); // = ", B_VA);
   } else {
-    printDebug("read_1u(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_1u(0x%016llX); // = ", (uint64_t)p);
   }
   printDebug("0x%X\n", *(const unsigned char *)p);
   return *(const unsigned char *)p;
@@ -93,9 +95,9 @@ static inline int read_1u(const void *p) {
 
 static inline int read_1s(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_1s(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_1s(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_1s(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_1s(0x%016llX); // = ", (uint64_t)p);
   }
   printDebug("0x%X\n", *(const signed char *)p);
   return *(const signed char *)p;
@@ -103,9 +105,9 @@ static inline int read_1s(const void *p) {
 
 static inline int read_2u(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_2u(0x016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_2u(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_2u(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_2u(0x%016llX); // = ", (uint64_t)p);
   }
   const union unaligned *up = (unaligned *)p;
   printDebug("0x%X\n", up->u2);
@@ -114,9 +116,9 @@ static inline int read_2u(const void *p) {
 
 static inline int read_2s(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_2s(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_2s(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_2s(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_2s(0x%016llX); // = ", (uint64_t)p);
   }
   const union unaligned *up = (unaligned *)p;
   printDebug("0x%X\n", up->s2);
@@ -125,9 +127,9 @@ static inline int read_2s(const void *p) {
 
 static inline unsigned int read_4u(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_4u(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_4u(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_4u(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_4u(0x%016llX); // = ", (uint64_t)p);
   }
 
   p = (const void *)geMappedBinary(p);
@@ -139,9 +141,9 @@ static inline unsigned int read_4u(const void *p) {
 
 static inline int read_4s(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_4s(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_4s(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_4s(0x%016llX) =", (uint64_t)p);
+    printDebug("result = read_4s(0x%016llX); // =", (uint64_t)p);
   }
   const union unaligned *up = (unaligned *)p;
   printDebug("0x%X\n", up->s2);
@@ -150,9 +152,9 @@ static inline int read_4s(const void *p) {
 
 static inline unsigned long read_8u(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_8u(0x%016llX) = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_8u(0x%016llX); // = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_8u(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_8u(0x%016llX); // = ", (uint64_t)p);
   }
   const union unaligned *up = (unaligned *)p;
   printDebug("0x%llX\n", up->u8);
@@ -161,9 +163,9 @@ static inline unsigned long read_8u(const void *p) {
 
 static inline unsigned long read_8s(const void *p) {
   if (isBinaryVA(p)) {
-    printDebug("read_8s(0x%016llX)  = ", (uint64_t)getBinaryVA(p));
+    printDebug("result = read_8s(0x%016llX); //  = ", (uint64_t)getBinaryVA(p));
   } else {
-    printDebug("read_8s(0x%016llX) = ", (uint64_t)p);
+    printDebug("result = read_8s(0x%016llX); // = ", (uint64_t)p);
   }
   const union unaligned *up = (unaligned *)p;
   printDebug("0x%llX\n", up->u8);
@@ -171,7 +173,7 @@ static inline unsigned long read_8s(const void *p) {
 }
 
 _Unwind_Word _Unwind_GetGR(struct _Unwind_Context *context, int index) {
-  printDebug("_Unwind_GetGR Reg: %i\n", index);
+  printDebug("// _Unwind_GetGR Reg: %i\n", index);
   return (_Unwind_Word)context->reg[index];
 }
 
@@ -180,6 +182,25 @@ void gcc_unreachable() { return; }
 void gcc_assert(int i) {
   return;
 }
+
+  //Track unique instructions
+  std::vector<uint64_t> UniqueTrace;
+
+  bool isKnownAddr(uint64_t Addr) {
+    auto R = std::find(UniqueTrace.begin(), UniqueTrace.end(), Addr);
+    if (R == UniqueTrace.end())
+      return false;
+
+    return true;
+  }
+
+  void addAddr(uint64_t Addr) {  
+    if (isKnownAddr(Addr))
+      return;
+
+    UniqueTrace.push_back(Addr);
+  }
+
 
 /* Decode a DW_OP stack program.  Return the top of stack.  Push INITIAL
    onto the stack to start.  */
@@ -195,6 +216,9 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
   stack_elt = 1;
 
   while (op_ptr < op_end) {
+    printf("IP: %08X ", getBinaryVA(op_ptr));
+    addAddr((uint64_t) op_ptr);
+
     enum dwarf_location_atom op = (dwarf_location_atom)*op_ptr++;
     _Unwind_Word result;
     _uleb128_t reg, utmp;
@@ -235,12 +259,12 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
     case DW_OP_lit29:
     case DW_OP_lit30:
     case DW_OP_lit31:
-      printDebug("DW_OP_lit%d\n", op - DW_OP_lit0);
+      printDebug("result = %d;\n", op - DW_OP_lit0);
       result = op - DW_OP_lit0;
       break;
 
     case DW_OP_addr:
-      printDebug("DW_OP_addr\n");
+      printDebug("result = DW_OP_addr;\n");
       result = (_Unwind_Word)(_Unwind_Ptr)read_pointer(op_ptr);
       op_ptr += sizeof(void *);
       break;
@@ -343,7 +367,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
     case DW_OP_reg29:
     case DW_OP_reg30:
     case DW_OP_reg31:
-      printDebug("DW_OP_reg%02d\n", op - DW_OP_reg0);
+      printDebug("result = getRegValue(%d);\n", op - DW_OP_reg0);
       result = _Unwind_GetGR(context, op - DW_OP_reg0);
       break;
     case DW_OP_regx:
@@ -396,22 +420,22 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
       break;
 
     case DW_OP_dup:
-      printDebug("DW_OP_dup ");
+      printDebug("result = DW_OP_dup(%d); // ", stack_elt - 1);
       gcc_assert(stack_elt);
       result = stack[stack_elt - 1];
       printDebug("0x%llX\n", result);
       break;
 
     case DW_OP_drop:
-      printDebug("DW_OP_drop\n");
+      printDebug("DW_OP_drop(); //%d\n", stack_elt);
       gcc_assert(stack_elt);
       stack_elt -= 1;
       goto no_push;
 
     case DW_OP_pick:
-      printDebug("DW_OP_pick ");
+      printDebug("result = DW_OP_pick(%d); // ", stack_elt - 1 - offset);
       offset = *op_ptr++;
-      gcc_assert(offset < stack_elt - 1);
+      //gcc_assert(offset < stack_elt - 1);
       result = stack[stack_elt - 1 - offset];
       printDebug("0x%llX\n", result);
       break;
@@ -423,10 +447,10 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
       break;
 
     case DW_OP_swap: {
-      printDebug("DW_OP_swap %llX <=> %llX\n", stack[stack_elt - 1],
-                 stack[stack_elt - 2]);
+      printDebug("DW_OP_swap(%d, %d);\n", stack_elt - 1,
+                 stack_elt - 2);
       _Unwind_Word t;
-      gcc_assert(stack_elt >= 2);
+      //gcc_assert(stack_elt >= 2);
       t = stack[stack_elt - 1];
       stack[stack_elt - 1] = stack[stack_elt - 2];
       stack[stack_elt - 2] = t;
@@ -441,7 +465,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
       t2 = stack[stack_elt - 2];
       t3 = stack[stack_elt - 3];
 
-      printDebug("DW_OP_rot [%llX, %llX, %llX]\n", t1, t2, t3);
+      printDebug("DW_OP_rot(%d, %d, %d); //%llX %llX %llX\n",stack_elt - 1,stack_elt - 2,stack_elt - 3, t1, t2, t3);
 
       stack[stack_elt - 1] = t2;
       stack[stack_elt - 2] = t3;
@@ -463,13 +487,13 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 
       switch (op) {
       case DW_OP_deref: {
-        printDebug("DW_OP_deref\n");
+        //printDebug("result = read_pointer(0x%llX); //DW_OP_deref\n", result);
         void *ptr = (void *)(_Unwind_Ptr)result;
         result = (_Unwind_Ptr)read_pointer(ptr);
       } break;
 
       case DW_OP_deref_size: {
-        printDebug("DW_OP_deref_size\n");
+        //printDebug("DW_OP_deref_size\n");
         void *ptr = (void *)(_Unwind_Ptr)result;
         switch (*op_ptr++) {
         case 1:
@@ -495,11 +519,11 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
           result = -result;
         break;
       case DW_OP_neg:
-        printDebug("DW_OP_neg -0x%016X = %016X\n", result, -result);
+        printDebug("result = -result; //DW_OP_neg -0x%016X = %016X\n", result, -result);
         result = -result;
         break;
       case DW_OP_not:
-        printDebug("DW_OP_not ~0x%016X = %016X\n", result, ~result);
+        printDebug("result = ~result; //DW_OP_not ~0x%016X = %016X\n", result, ~result);
         result = ~result;
         break;
       case DW_OP_plus_uconst:
@@ -540,63 +564,63 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 
       switch (op) {
       case DW_OP_and:
-        printDebug("DW_OP_and %llX & %llX = %llX\n", first, second,
+        printDebug("result = DW_OP_and(%d, %d); // %llX & %llX = %llX\n", stack_elt, stack_elt + 1 ,first, second,
                    first & second);
         result = second & first;
         break;
       case DW_OP_div:
-        printDebug("DW_OP_div %llX / %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_div(%d, %d); // %llX / %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    (_Unwind_Sword)second / (_Unwind_Sword)first);
       
         result = (_Unwind_Sword)second / (_Unwind_Sword)first;
         break;
       case DW_OP_minus:
-        printDebug("DW_OP_minus %llX - %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_minus(%d, %d); // %llX - %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second - second);
         result = second - first;
         break;
       case DW_OP_mod:
-        printDebug("DW_OP_mod %llX << %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_mod(%d, %d); // %llX << %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second % first);
       
         result = second % first;
         break;
       case DW_OP_mul:
-        printDebug("DW_OP_mul %llX * %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_mul(%d, %d); // %llX * %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second * first);
       
         result = second * first;
         break;
       case DW_OP_or:
-        printDebug("DW_OP_or %llX | %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_or(%d, %d); // %llX | %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second | first);
       
         result = second | first;
         break;
       case DW_OP_plus:
-        printDebug("DW_OP_plus: %llX + %llX = %llX\n", first, second, second+first);
+        printDebug("result = DW_OP_plus(%d, %d); // 0x%016llX + 0x%016llX = 0x%016llX\n", stack_elt, stack_elt + 1, first, second, second+first);
         result = second + first;
         break;
       case DW_OP_shl:
-        printDebug("DW_OP_shl %llX << %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_shl(%d, %d); // %llX << %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second << first);
         result = second << first;
         break;
       case DW_OP_shr:
-        printDebug("DW_OP_shr %llX >> %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_shr(%d, %d); // %llX >> %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second >> first);
 
         result = second >> first;
         break;
       case DW_OP_shra:
-        printDebug("DW_OP_shra %llX >> %llX = %llX\n", second, first,
+        printDebug("result = DW_OP_shra(%d, %d); // %llX >> %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
                    second >> first);
         result = (_Unwind_Sword)second >> first;
         break;
       case DW_OP_xor:
-printDebug("DW_OP_xor %llX ^ %llX = %llX\n", second, first,
-  second ^ first);
-result = second ^ first;
+        printDebug("result = DW_OP_xor(%d, %d); // %llX ^ %llX = %llX\n", stack_elt, stack_elt + 1, second, first,
+        second ^ first);
+        result = second ^ first;
 break;
       case DW_OP_le:
         printDebug("DW_OP_le %llX <= %llX = %llX\n", second, first,
@@ -635,7 +659,7 @@ break;
     } break;
 
     case DW_OP_skip:
-      printDebug("DW_OP_skip\n");
+      printDebug("DW_OP_skip(); // 0x%16X\n", op_ptr);
       offset = read_2s(op_ptr);
       op_ptr += 2;
       op_ptr += offset;
@@ -648,7 +672,7 @@ break;
       offset = read_2s(op_ptr);
       op_ptr += 2;
 
-      printDebug("DW_OP_bra 0x%llX != 0 = %d\n", stack[stack_elt],
+      printDebug("DW_OP_bra(%d); // 0x%llX != 0 = %d\n", stack_elt, stack[stack_elt],
         stack[stack_elt] != 0);
 
       if (stack[stack_elt] != 0)
@@ -656,7 +680,7 @@ break;
       goto no_push;
 
     case DW_OP_nop:
-      printDebug("DW_OP_nop");
+      printDebug("// DW_OP_nop");
       goto no_push;
 
     default:
@@ -681,7 +705,7 @@ int main(int argc, char **argv) {
   const uint8_t *Binary = decrypted_file;
 
   // printDebug
-  printDebug("Binary %llX - %llX\n", Binary, Binary + decrypted_file_len);
+  printDebug("// Binary %llX - %llX\n", Binary, Binary + decrypted_file_len);
   BinaryStart = (uint64_t)Binary;
   BinaryEnd = (uint64_t)Binary + decrypted_file_len;
 
@@ -719,6 +743,9 @@ int main(int argc, char **argv) {
   SimArgv[0] = (uint64_t *)0x1111111111111111;
   SimArgv[1] = (uint64_t *)Flag;
 
+  printDebug("// SimArgv = 0x%016llX\n", SimArgv);
+  printDebug("// SimArgv[1] = 0x%016llX\n", SimArgv[1]);
+
   // Set reg values
   uint64_t **ppArgv = (uint64_t **)&SimArgv;
   uw_context->reg[31] = (_Unwind_Word *)&ppArgv; // 0x0000FFFFFFFFFB20;
@@ -731,6 +758,13 @@ int main(int argc, char **argv) {
   // Arg2 = struct _Unwind_Context* uw_context) (size 960 Byte)
   uint64_t Out = execute_stack_op(Binary + 0x3213, Binary + 0x3216, uw_context, 0);
   printDebug("Out: %lX\n", Out);
+
+  // Print trace
+  printDebug("Unique Instructions: %d\n", UniqueTrace.size());
+  for (auto E : UniqueTrace) {    
+    printDebug("%08X\n", E);
+  }
+
   if (Out == 0x4030B8) {
     // Bad result
     printf("Bad Result!\n");
