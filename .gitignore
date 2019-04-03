@@ -133,3 +133,7 @@ safe_01/VM_Inter/VM_Inter/Debug/vc142.idb
 safe_01/VM_Inter/VM_Inter/Debug/vc142.pdb
 safe_01/VM_Inter/Debug/VM_Inter.pdb
 safe_01/VM_Inter/Debug/trace.h
+safe_01/VM_Disassembler/vm_disassembler/.vs/vm_disassembler/v15/.suo
+safe_01/VM_Disassembler/vm_disassembler/.vs/vm_disassembler/v15/ipch/AutoPCH/817c8cafb4aafb22/MAIN.ipch
+safe_01/VM_Disassembler/vm_disassembler/Debug/trace.h
+safe_01/VM_Unpacked/VM_Unpacked/x64/Release/VM_Unpacked.tlog/unsuccessfulbuild

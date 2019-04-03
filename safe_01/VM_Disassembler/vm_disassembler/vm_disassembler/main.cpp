@@ -94,7 +94,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		case DW_OP_lit29:
 		case DW_OP_lit30:
 		case DW_OP_lit31:
-			printf("%s = DW_OP_lit(%02d);\n", getStackPtrStr().c_str(), op - DW_OP_lit0);
+			printf("Stack[StackPtr] = DW_OP_lit(%02d);StackPtr++;\n", op - DW_OP_lit0);
 			stack_elt++;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));			
 			//result = op - DW_OP_lit0;									
@@ -102,7 +102,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			break;
 
 		case DW_OP_addr:
-			printf("%s = DW_OP_addr(0x%08X);\n", getStackPtrStr().c_str(), op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_addr(0x%08X);StackPtr++;\n", op_ptr);			
 			//result = (_Unwind_Word)(_Unwind_Ptr)read_pointer(op_ptr);
 			op_ptr += sizeof(void*);
 			stack_elt++;
@@ -118,7 +118,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		} break;
 
 		case DW_OP_const1u:
-			printf("%s = DW_OP_const1u(0x%02X);\n", getStackPtrStr().c_str(), *(uint8_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const1u(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);			
 			//result = read_1u(op_ptr);
 			op_ptr += 1;
 			// printDebug("0x%X\n", result);			
@@ -127,7 +127,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const1s:
-			printf("%s = DW_OP_const1s(0x%02X);\n", getStackPtrStr().c_str(), *(uint8_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const1s(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);			
 			//result = read_1s(op_ptr);
 			op_ptr += 1;
 			// printDebug("0x%X\n", result);			
@@ -136,7 +136,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const2u:
-			printf("%s = DW_OP_const2u(0x%04X);\n", getStackPtrStr().c_str(), *(uint16_t*)op_ptr);
+			printf("Stack[StackPtr] = DW_OP_const2u(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);
 			//result = read_2u(op_ptr);			
 			op_ptr += 2;			
 			stack_elt++;
@@ -144,7 +144,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const2s:
-			printf("%s = DW_OP_const2s(0x%04X);\n", getStackPtrStr().c_str(), *(uint16_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const2s(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);			
 			//result = read_2s(op_ptr);
 			op_ptr += 2;
 			stack_elt++;
@@ -152,7 +152,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const4u:
-			printf("%s = DW_OP_const4u(0x%08X);\n", getStackPtrStr().c_str(), *(uint32_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const4u(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);			
 			//result = read_4u(op_ptr);
 			op_ptr += 4;
 			stack_elt++;
@@ -160,7 +160,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const4s:
-			printf("%s = DW_OP_const4s(0x%08X);\n", getStackPtrStr().c_str(), *(uint32_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const4s(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);			
 			//result = read_4s(op_ptr);
 			op_ptr += 4;			
 			stack_elt++;
@@ -168,7 +168,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const8u:
-			printf("%s = DW_OP_const8u(0x%016llX);\n", getStackPtrStr().c_str(), *(uint64_t *) op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const8u(0x%016llX);StackPtr++;\n", *(uint64_t *) op_ptr);			
 			//printDebug("DW_OP_const8u *(%llX) = ", op_ptr);
 			//result = read_8u(op_ptr);
 			//printDebug("%llX\n", result);
@@ -178,7 +178,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_const8s:
-			printf("%s = DW_OP_const8s(0x%016llX);\n", getStackPtrStr().c_str(), *(uint64_t*)op_ptr);			
+			printf("Stack[StackPtr] = DW_OP_const8s(0x%016llX);StackPtr++;\n", *(uint64_t*)op_ptr);			
 			//result = read_8s(op_ptr);
 			op_ptr += 8;			
 			stack_elt++;
@@ -228,7 +228,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		case DW_OP_reg29:
 		case DW_OP_reg30:
 		case DW_OP_reg31:
-			printf("%s = DW_OP_reg(%d);\n", getStackPtrStr().c_str(), op - DW_OP_reg0);
+			printf("Stack[StackPtr] = DW_OP_reg(%d);StackPtr++;\n", op - DW_OP_reg0);
 			//result = _Unwind_GetGR(context, op - DW_OP_reg0);				
 			stack_elt++;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));			
@@ -284,7 +284,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			break;
 
 		case DW_OP_dup:
-			printf("%s = S%d; // DW_OP_dup();\n", getStackPtrStr().c_str(), stack_elt - 1);
+			printf("Stack[StackPtr] = Stack[StackPtr-1];StackPtr++; // DW_OP_dup();\n", stack_elt - 1);
 			//gcc_assert(stack_elt);
 			//result = stack[stack_elt - 1];
 			//printDebug("0x%llX\n", result);			
@@ -294,7 +294,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			break;
 
 		case DW_OP_drop:
-			printf("// DW_OP_drop();\n");
+			printf("StackPtr--; // DW_OP_drop();\n");
 			//gcc_assert(stack_elt);			
 			stack_elt -= 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));			
@@ -303,7 +303,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 		case DW_OP_pick:			
 			offset = *op_ptr++;
-			printf("S%d = S%d; // DW_OP_pick(S%d)\n", stack_elt, stack_elt - 1 - offset, stack_elt - 1 - offset);
+			printf("Stack[StackPtr] = Stack[StackPtr - 1 - %d];StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
 			//gcc_assert(offset < stack_elt - 1);
 			//result = stack[stack_elt - 1 - offset];
 			//printDebug("0x%llX\n", result);
@@ -313,7 +313,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			break;
 
 		case DW_OP_over:
-			printf("S%d = DW_OP_over(S%d);\n", stack_elt, stack_elt - 2);
+			printf("!!!Stack[StackPtr]  = DW_OP_over(S%d);StackPtr++;\n", stack_elt, stack_elt - 2);
 			//gcc_assert(stack_elt >= 2);
 			//result = stack[stack_elt - 2];
 			
@@ -323,8 +323,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			break;
 
 		case DW_OP_swap: {
-			printf("DW_OP_swap(S%d, S%d);\n", stack_elt - 1,
-				stack_elt - 2);
+			printf("DW_OP_swap(Stack[StackPtr-1], Stack[StackPtr-2]);\n");
 			//_Unwind_Word t;
 			//gcc_assert(stack_elt >= 2);
 			//t = stack[stack_elt - 1];
@@ -338,7 +337,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		}
 
 		case DW_OP_rot: {
-			printf("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
+			printf("DW_OP_rot(Stack[StackPtr-1], Stack[StackPtr-2], Stack[StackPtr-3]);\n");
 			//_Unwind_Word t1, t2, t3;
 
 			//gcc_assert(stack_elt >= 3);
@@ -365,11 +364,13 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			//gcc_assert(stack_elt);
 			stack_elt -= 1;
 
+			printf("StackPtr--;");
+
 			//result = stack[stack_elt];
 
 			switch (op) {
 			case DW_OP_deref: {				
-				printf("%s = DW_OP_deref(S%d);\n", getStackPtrStr().c_str(), stack_elt);
+				printf("Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);StackPtr++;\n");
 				//void* ptr = (void*)(_Unwind_Ptr)result;
 				//result = (_Unwind_Ptr)read_pointer(ptr);				
 				stack_elt += 1;
@@ -379,7 +380,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 			case DW_OP_deref_size: {
 				uint8_t i = *op_ptr++;
-				printf("%s = DW_OP_deref_size(%d, S%d);\n", getStackPtrStr().c_str(), i, stack_elt);
+				printf("Stack[StackPtr] = DW_OP_deref_size(%d, Stack[StackPtr]);StackPtr++;\n", i);
 				
 				/*
 				void* ptr = (void*)(_Unwind_Ptr)result;
@@ -406,7 +407,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			} break;
 
 			case DW_OP_abs:
-				printf("%s = DW_OP_abs(S%d);\n", getStackPtrStr().c_str(), stack_elt);
+				printf("Stack[StackPtr] = DW_OP_abs(Stack[StackPtr]);StackPtr++;\n");
 				//if ((_Unwind_Sword)result < 0)
 				//	result = -result;							
 				stack_elt += 1;
@@ -414,14 +415,14 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 				return E;
 				break;
 			case DW_OP_neg:
-				printf("%s = DW_OP_neg(S%d);\n", getStackPtrStr().c_str(), stack_elt);				
+				printf("Stack[StackPtr] = DW_OP_neg(Stack[StackPtr]);StackPtr++;\n");				
 				//result = -result;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_not:
-				printf("%s = DW_OP_not(S%d)\n", getStackPtrStr().c_str(), stack_elt);				
+				printf("Stack[StackPtr] = DW_OP_not(Stack[StackPtr]);StackPtr++;\n");				
 				//result = ~result;			
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
@@ -464,12 +465,14 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			//gcc_assert(stack_elt >= 2);
 			stack_elt -= 2;
 
+			printf("StackPtr -= 2;");
+
 			//second = stack[stack_elt];
 			//first = stack[stack_elt + 1];
 
 			switch (op) {
 			case DW_OP_and: {
-				printf("%s = DW_OP_and(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt+1);
+				printf("Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second & first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
@@ -477,7 +480,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			}
 				break;
 			case DW_OP_div:
-				printf("%s = DW_OP_div(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_div(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//(_Unwind_Sword)second / (_Unwind_Sword)first);
 				//result = (_Unwind_Sword)second / (_Unwind_Sword)first;
 				stack_elt += 1;
@@ -485,105 +488,105 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 				return E;
 				break;
 			case DW_OP_minus:
-				printf("%s = DW_OP_minus(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second - first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_mod:
-				printf("%s = DW_OP_mod(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_mod(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second % first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_mul:
-				printf("%s = DW_OP_mul(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_mul(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second * first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_or:
-				printf("%s = DW_OP_or(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_or(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second | first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_plus:
-				printf("%s = DW_OP_plus(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second + first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_shl:
-				printf("%s = DW_OP_shl(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_shl(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second << first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_shr:
-				printf("%s = DW_OP_shr(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second >> first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_shra:
-				printf("%s = DW_OP_shra(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_shra(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second >> first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_xor:
-				printf("%s = DW_OP_xor(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = second ^ first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_le:
-				printf("%s = DW_OP_le(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_le(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second <= (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_ge:
-				printf("%s = DW_OP_ge(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_ge(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second >= (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_eq:
-				printf("%s = DW_OP_eq(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_eq(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second == (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_lt:				
-				printf("%s = DW_OP_lt(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_lt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second < (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_gt:
-				printf("%s = DW_OP_gt(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_gt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second > (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
 				return E;
 				break;
 			case DW_OP_ne:
-				printf("%s = DW_OP_ne(S%d, S%d);\n", getStackPtrStr().c_str(), stack_elt, stack_elt + 1);
+				printf("Stack[StackPtr] = DW_OP_ne(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
 				//result = (_Unwind_Sword)second != (_Unwind_Sword)first;
 				stack_elt += 1;
 				E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));				
@@ -612,12 +615,15 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 		case DW_OP_bra:			
 			stack_elt -= 1;
+
+			printf("StackPtr--;");
+
 			//offset = read_2s(op_ptr);
 			offset = *(int16_t*)op_ptr;
 
 			op_ptr += 2;
 			
-			printf("if (S%d != 0) goto _%08X; //", stack_elt, getBinaryVA(op_ptr + offset));
+			printf("if (Stack[StackPtr] != 0) goto _%08X; //", getBinaryVA(op_ptr + offset));
 			printf("// DW_OP_bra 0x%08X (0x%08X, 0x%08X)\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
 
 			//if (stack[stack_elt] != 0)
