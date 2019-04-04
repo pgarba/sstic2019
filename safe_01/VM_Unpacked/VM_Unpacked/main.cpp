@@ -167,128 +167,132 @@ Unroll the code
 */
 //#define Unroll
 
-#ifdef Unroll
+uint64_t Stack[44];
+
 // The Stack Ptr
 uint64_t StackPtr = 2;
-#endif
 
-__forceinline uint64_t DW_OP_reg(int Reg) { 
+__forceinline uint64_t DW_OP_reg(int Reg) {
 #ifdef Unroll
-	printf("S%d = REG31;\n", StackPtr);
+  printf("S%d = REG31;\n", StackPtr);
 #endif
-	return 0; 
+  return 0;
 }
 
-__forceinline uint64_t DW_OP_lit(uint64_t lit) { 
+__forceinline uint64_t DW_OP_lit(uint64_t lit) {
 #ifdef Unroll
-	printf("S%d = %d;\n", StackPtr, lit);
+  printf("S%d = %d;\n", StackPtr, lit);
 #endif
 
-	return lit; 
+  return lit;
 }
 
-__forceinline uint64_t DW_OP_const1u(uint8_t Const) { 
+__forceinline uint64_t DW_OP_const1u(uint8_t Const) {
 #ifdef Unroll
-	printf("S%d = 0x%X;\n", StackPtr, Const);
+  printf("S%d = 0x%X;\n", StackPtr, Const);
 #endif
 
-	return Const; 
+  return Const;
 }
 
-__forceinline uint64_t DW_OP_const4u(uint32_t Const) {
+__forceinline uint64_t DW_OP_const4u(uint32_t Const, bool Print = true) {
 #ifdef Unroll
-	printf("S%d = 0x%X;\n", StackPtr, Const);
+	if (Print) {
+		printf("S%d = 0x%X;\n", StackPtr, Const);
+	}
 #endif
-	return Const; 
+  return Const;
 }
 
-__forceinline uint64_t DW_OP_const8u(uint64_t Const) { 
+__forceinline uint64_t DW_OP_const8u(uint64_t Const) {
 #ifdef Unroll
-	printf("S%d = 0x%llX;\n", StackPtr, Const);
+  printf("S%d = 0x%llX;\n", StackPtr, Const);
 #endif
 
-	return Const; 
+  return Const;
 }
 
-__forceinline uint64_t DW_OP_plus(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_plus(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  + S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  + S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
 
-	return A + B; 
+  return A + B;
 }
 
-__forceinline uint64_t DW_OP_minus(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_minus(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  - S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  - S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
 
-	return A - B; 
+  return A - B;
 }
 
-__forceinline uint64_t DW_OP_and(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_and(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  & S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  & S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
 
-	return A & B; 
+  return A & B;
 }
 
-__forceinline uint64_t DW_OP_or(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_or(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d | S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d | S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
-	return A | B; 
+  return A | B;
 }
 
-__forceinline uint64_t DW_OP_shr(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_shr(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  >> S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  >> S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
 
-	return A >> B; 
+  return A >> B;
 }
 
 __forceinline uint64_t DW_OP_shl(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  << S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  << S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
-	return A << B; 
+  return A << B;
 }
 
-__forceinline uint64_t DW_OP_xor(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_xor(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  ^ S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  ^ S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
-	return A ^ B; 
+  return A ^ B;
 }
 
-__forceinline uint64_t DW_OP_mul(uint64_t A, uint64_t B) { 
+__forceinline uint64_t DW_OP_mul(uint64_t A, uint64_t B) {
 #ifdef Unroll
-	printf("S%d = S%d  * S%d;\n", StackPtr, StackPtr, StackPtr + 1);
+  printf("S%d = S%d  * S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
 
-	return A * B; 
+  return A * B;
 }
 
 __forceinline uint64_t DW_OP_deref(uint64_t VA) {
   int index = (VA - 0x400648); // / 4;
 
 #ifdef Unroll
-	printf("S%d = *(uint64_t *)(&Table_00400648[S%d - 0x400648]);\n", StackPtr, StackPtr);
+  printf("S%d = *(uint64_t *)(&Table_00400648[S%d - 0x400648]);\n", StackPtr,
+         StackPtr);
 #endif
 
   return *(uint64_t *)(&Table_00400648[index]);
 }
 
-__forceinline uint64_t DW_OP_deref_size(uint64_t Ptr) {	
-	int index = (Ptr - 0x400648) / 4;
+__forceinline uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
+  int index = (Ptr - 0x400648) / 4;
 
 #ifdef Unroll
-	printf("S%d = *(uint32_t *)(&Table_00400648[S%d - 0x400648]);\n", StackPtr, StackPtr);
+  printf("S%d = *(uint32_t *)(&Table_00400648[S%d - 0x400648]);\n", StackPtr,
+         StackPtr);
 #endif
 
-	return ((uint32_t *)Table_00400648)[index];
+  return ((uint32_t *)Table_00400648)[index];
 }
 
 __forceinline void DW_OP_swap(uint64_t &A, uint64_t &B) {
@@ -297,7 +301,8 @@ __forceinline void DW_OP_swap(uint64_t &A, uint64_t &B) {
   B = t;
 
 #ifdef Unroll
-	printf("STemp1 = S%d; S%d = S%d;S%d = STemp1;\n", StackPtr - 1, StackPtr - 1, StackPtr - 2, StackPtr - 2);
+  printf("STemp1 = S%d; S%d = S%d;S%d = STemp1;\n", StackPtr - 1, StackPtr - 1,
+         StackPtr - 2, StackPtr - 2);
 #endif
 }
 
@@ -309,31 +314,38 @@ __forceinline void DW_OP_rot(uint64_t &A, uint64_t &B, uint64_t &C) {
   t3 = C;
 
 #ifdef Unroll
-	printf("STemp1 = S%d;\n", StackPtr - 1);
-	printf("STemp2 = S%d;\n", StackPtr - 2);
-	printf("STemp3 = S%d;\n", StackPtr - 3);
-	printf("S%d = STemp2;\n", StackPtr - 1);
-	printf("S%d = STemp3;\n", StackPtr - 2);
-	printf("S%d = STemp1;\n", StackPtr - 3);
+  printf("STemp1 = S%d;\n", StackPtr - 1);
+  printf("STemp2 = S%d;\n", StackPtr - 2);
+  printf("STemp3 = S%d;\n", StackPtr - 3);
+  printf("S%d = STemp2;\n", StackPtr - 1);
+  printf("S%d = STemp3;\n", StackPtr - 2);
+  printf("S%d = STemp1;\n", StackPtr - 3);
 #endif
 
   A = t2;
   B = t3;
-  C = t1;	
+  C = t1;
+}
+
+uint64_t DW_OP_dup(int Ptr) {
+#ifdef Unroll
+  printf("S%d = S%d;\n", Ptr + 1, Ptr);
+#endif
+  return Stack[Ptr];
+}
+
+uint64_t DW_OP_pick(uint64_t Offset) {
+#ifdef Unroll
+  printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - Offset);
+#endif
+  return Stack[StackPtr - 1 - Offset];
 }
 
 int VM_Func(const char *Flag) {
-  uint64_t Stack[44];
-
-#ifndef Unroll
-	// The Stack Ptr
-	uint64_t StackPtr = 2;
-#endif
-
   // Part 1
   Stack[StackPtr] = *(const uint64_t *)Flag;
 #ifdef Unroll
-	printf("S%d = *(const uint64_t *)Flag;\n", StackPtr);
+  printf("S%d = *(const uint64_t *)Flag;\n", StackPtr);
 #endif
 
   StackPtr++;
@@ -346,7 +358,7 @@ _00400263:
   Stack[StackPtr] = *(const uint64_t *)(Flag + 8);
 
 #ifdef Unroll
-	printf("S%d = *(const uint64_t *)(Flag + 8);\n", StackPtr);
+  printf("S%d = *(const uint64_t *)(Flag + 8);\n", StackPtr);
 #endif
 
   StackPtr++;
@@ -359,7 +371,7 @@ _00400269:
   Stack[StackPtr] = *(const uint64_t *)(Flag + 16);
 
 #ifdef Unroll
-	printf("S%d = *(const uint64_t *)(Flag + 16);\n", StackPtr);
+  printf("S%d = *(const uint64_t *)(Flag + 16);\n", StackPtr);
 #endif
 
   StackPtr++;
@@ -374,7 +386,7 @@ _00400274:
   Stack[StackPtr] = *(const uint64_t *)(Flag + 24);
 
 #ifdef Unroll
-	printf("S%d = *(const uint64_t *)(Flag + 24);\n", StackPtr);
+  printf("S%d = *(const uint64_t *)(Flag + 24);\n", StackPtr);
 #endif
 
   StackPtr++;
@@ -387,38 +399,27 @@ _00400275:
   Stack[StackPtr] = *(const uint8_t *)(Flag + 32);
 
 #ifdef Unroll
-	printf("S%d = *(const uint8_t *)(Flag + 32);\n", StackPtr);
+  printf("S%d = *(const uint8_t *)(Flag + 32);\n", StackPtr);
 #endif
-
   StackPtr++;
+
 _0040027B:
   StackPtr--;
-
-  //  DW_OP_bra
   if (Stack[StackPtr] != 0)
     goto _004002C2; //// DW_OP_bra 0x00000044 (0x0040027E, 0x004002C2)
-
 _0040027E:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S1)
 _00400280:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S2)
 _00400282:
   goto _004002CE; // DW_OP_skip 0x00000049 (0x004002CE)
-
 _004002C2:
   Stack[StackPtr] = DW_OP_const8u(0x00000000004030B8);
   StackPtr++;
   //_004002CB: goto _004082CD; // DW_OP_skip 0x00007FFF (0x004082CD)
   return 0x4030B8;
-
 _004002CE:
   Stack[StackPtr] = DW_OP_lit(00);
   StackPtr++;
@@ -428,31 +429,21 @@ _004002D0:
   Stack[StackPtr] = DW_OP_lit(00);
   StackPtr++;
 _004002D1:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 5];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 5);
-#endif
+  Stack[StackPtr] = DW_OP_pick(5);
   StackPtr++; // DW_OP_pick(S3)
 _004002D3:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 5];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 5);
-#endif
+  Stack[StackPtr] = DW_OP_pick(5);
   StackPtr++; // DW_OP_pick(S4)
 _004002D5:
   goto _0040030B; // DW_OP_skip 0x00000033 (0x0040030B)
-
 _0040030B:
   Stack[StackPtr] = DW_OP_lit(04);
   StackPtr++;
 _0040030C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040030D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040030E:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -481,11 +472,8 @@ _00400326:
 _00400327:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400328:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400329:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -510,18 +498,12 @@ _00400340:
   Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400341:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400342:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400343:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S10)
 _00400345:
   StackPtr -= 2;
@@ -541,10 +523,7 @@ _0040034C:
 _0040034D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040034E:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S10)
 _00400350:
   StackPtr -= 2;
@@ -553,16 +532,10 @@ _00400350:
 _00400351:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400352:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400353:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S10)
 _00400355:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -580,10 +553,7 @@ _0040035C:
 _0040035D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040035E:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S11)
 _00400360:
   Stack[StackPtr] = DW_OP_const1u(0xFF);
@@ -608,7 +578,7 @@ _0040036F:
   StackPtr++;
 _00400370:
   StackPtr--;
-  Stack[StackPtr] = DW_OP_deref_size(Stack[StackPtr]);
+  Stack[StackPtr] = DW_OP_deref_size(4, Stack[StackPtr]);
   StackPtr++;
 _00400372:
   StackPtr -= 2;
@@ -622,16 +592,10 @@ _00400378:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400379:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040037A:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S11)
 _0040037C:
   Stack[StackPtr] = DW_OP_const1u(0x08);
@@ -683,13 +647,13 @@ _0040038E:
 _0040038F:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400390:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400391:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400392:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400393:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400394:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400395:
@@ -702,22 +666,16 @@ _00400398:
   Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400399:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040039A:
   StackPtr--;
   if (Stack[StackPtr] != 0)
     goto _0040030C; //// DW_OP_bra 0xFFFFFF6F (0x0040039D, 0x0040030C)
 _0040039D:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040039E:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S8)
 _004003A0:
   StackPtr--;
@@ -726,32 +684,20 @@ _004003A0:
 _004003A3:
   goto _004002D8; // DW_OP_skip 0xFFFFFF32 (0x004002D8)
 _004002D8:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S6)
 _004002DA:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S7)
 _004002DC:
   goto _004003A9; // DW_OP_skip 0x000000CA (0x004003A9)
 _004003A6:
   goto _004002ED; // DW_OP_skip 0xFFFFFF44 (0x004002ED)
 _004002ED:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 7];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 7);
-#endif
+  Stack[StackPtr] = DW_OP_pick(7);
   StackPtr++; // DW_OP_pick(S3)
 _004002EF:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 7];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 7);
-#endif
+  Stack[StackPtr] = DW_OP_pick(7);
   StackPtr++; // DW_OP_pick(S4)
 _004002F1:
   goto _004003A9; // DW_OP_skip 0x000000B5 (0x004003A9)
@@ -763,22 +709,13 @@ _004003AA:
 _004003AB:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003AC:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S11)
 _004003AE:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 5];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 5);
-#endif
+  Stack[StackPtr] = DW_OP_pick(5);
   StackPtr++; // DW_OP_pick(S9)
 _004003B0:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 5];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 5);
-#endif
+  Stack[StackPtr] = DW_OP_pick(5);
   StackPtr++; // DW_OP_pick(S10)
 _004003B2:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -792,10 +729,7 @@ _004003B5:
 _004003B6:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003B7:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S15)
 _004003B9:
   goto _0040055C; // DW_OP_skip 0x000001A0 (0x0040055C)
@@ -804,11 +738,8 @@ _0040055C:
 _0040055D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040055E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040055F:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -837,11 +768,8 @@ _00400577:
 _00400578:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400579:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040057A:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -866,10 +794,7 @@ _00400591:
   Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400592:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S16)
 _00400594:
   Stack[StackPtr] = DW_OP_lit(04);
@@ -887,23 +812,20 @@ _0040059F:
   StackPtr++;
 _004005A0:
   StackPtr--;
-  Stack[StackPtr] = DW_OP_deref_size(Stack[StackPtr]);
+  Stack[StackPtr] = DW_OP_deref_size(4, Stack[StackPtr]);
   StackPtr++;
 _004005A2:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S17)
 _004005A4:
   StackPtr -= 2;
-  Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
+	Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
+#ifdef Unroll
+	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _004005A4 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
+#endif
   StackPtr++;
 _004005A5:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S18)
 _004005A7:
   Stack[StackPtr] = DW_OP_const4u(0x45786532);
@@ -920,33 +842,21 @@ _004005B2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005B3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004005B4:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S19)
 _004005B6:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005B7:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S20)
 _004005B9:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004005BA:
   Stack[StackPtr] = DW_OP_const1u(0x04);
   StackPtr++;
@@ -979,16 +889,10 @@ _004005C8:
 _004005C9:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004005CA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004005CB:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S21)
 _004005CD:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -1004,10 +908,7 @@ _004005D4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005D5:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S22)
 _004005D7:
   Stack[StackPtr] = DW_OP_const4u(0x80000000);
@@ -1018,18 +919,26 @@ _004005DC:
   StackPtr++;
 _004005DD:
   StackPtr--;
+
+	// Fix me	(Extra check!!!!)
+#ifdef Unroll
+	printf("if (S%d != 0) S%d = 0x84653217; else S%d = 0x17246549;\n", StackPtr, StackPtr, StackPtr);
+	// Store old StackPtr
+	int OldStackPtr = StackPtr;
+#endif 
   if (Stack[StackPtr] != 0)
     goto _004005E8; //// DW_OP_bra 0x00000008 (0x004005E0, 0x004005E8)
 _004005E0:
-  Stack[StackPtr] = DW_OP_const4u(0x17246549);
+  Stack[StackPtr] = DW_OP_const4u(0x17246549, false);
   StackPtr++;
 _004005E5:
   goto _004005ED; // DW_OP_skip 0x00000005 (0x004005ED)
 _004005E8:
-  Stack[StackPtr] = DW_OP_const4u(0x84653217);
+  Stack[StackPtr] = DW_OP_const4u(0x84653217, false);
   StackPtr++;
 _004005ED:
   goto _00400AB5; // DW_OP_skip 0x000004C5 (0x00400AB5)
+
 _00400AB5:
   Stack[StackPtr] = DW_OP_const4u(0xA571689F);
   StackPtr++;
@@ -1059,11 +968,8 @@ _00400ACC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400ACD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400ACE:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -1083,11 +989,8 @@ _00400AD7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AD8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400AD9:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1116,17 +1019,11 @@ _00400AE6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AE7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400AE8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400AE9:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -1159,11 +1056,8 @@ _00400AF7:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AF8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400AF9:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1183,11 +1077,8 @@ _00400B02:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B03:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B04:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -1207,17 +1098,11 @@ _00400B0D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B0E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B0F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B10:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -1257,17 +1142,11 @@ _00400B24:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B25:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B26:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B27:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1300,11 +1179,8 @@ _00400B35:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B36:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B37:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1317,17 +1193,11 @@ _00400B3A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B3B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B3C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B3D:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -1367,17 +1237,11 @@ _00400B51:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B52:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B53:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B54:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1417,11 +1281,8 @@ _00400B68:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B69:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B6A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1434,17 +1295,11 @@ _00400B6D:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B6E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B6F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B70:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -1484,11 +1339,8 @@ _00400B84:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B85:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B86:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1508,17 +1360,11 @@ _00400B8F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B90:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B91:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400B92:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1551,11 +1397,8 @@ _00400BA0:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BA1:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BA2:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1568,11 +1411,8 @@ _00400BA5:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BA6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BA7:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1601,11 +1441,8 @@ _00400BB4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BB5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BB6:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1634,11 +1471,8 @@ _00400BC3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BC4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BC5:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1658,11 +1492,8 @@ _00400BCE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BCF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BD0:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1691,11 +1522,8 @@ _00400BDD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BDE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BDF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1724,11 +1552,8 @@ _00400BEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BED:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BEE:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1741,17 +1566,11 @@ _00400BF1:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BF2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BF3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400BF4:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -1784,17 +1603,11 @@ _00400C02:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C03:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C04:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C05:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1834,17 +1647,11 @@ _00400C19:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C1A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C1B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C1C:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -1898,11 +1705,8 @@ _00400C3C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C3D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C3E:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -1922,11 +1726,8 @@ _00400C47:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C48:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C49:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -1955,17 +1756,11 @@ _00400C56:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C57:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C58:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C59:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2005,17 +1800,11 @@ _00400C6D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C6E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C6F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C70:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -2076,17 +1865,11 @@ _00400C96:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C97:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C98:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400C99:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -2133,11 +1916,8 @@ _00400CB3:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CB4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CB5:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2180,11 +1960,8 @@ _00400CCE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CCF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CD0:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2213,11 +1990,8 @@ _00400CDD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CDE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CDF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2246,11 +2020,8 @@ _00400CEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CED:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CEE:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -2270,17 +2041,11 @@ _00400CF7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CF8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CF9:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400CFA:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2334,11 +2099,8 @@ _00400D1A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D1B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D1C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -2358,11 +2120,8 @@ _00400D25:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D26:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D27:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -2382,11 +2141,8 @@ _00400D30:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D31:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D32:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -2406,11 +2162,8 @@ _00400D3B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D3C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D3D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -2437,11 +2190,8 @@ _00400D4C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D4D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D4E:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -2475,17 +2225,11 @@ _00400D63:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D64:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D65:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D66:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -2525,11 +2269,8 @@ _00400D7A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D7B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D7C:
   Stack[StackPtr] = DW_OP_lit(06);
   StackPtr++;
@@ -2543,17 +2284,11 @@ _00400D83:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D84:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D85:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D86:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -2586,17 +2321,11 @@ _00400D94:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D95:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D96:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400D97:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -2636,17 +2365,11 @@ _00400DAB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DAC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DAD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DAE:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2686,11 +2409,8 @@ _00400DC2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DC3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DC4:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -2710,11 +2430,8 @@ _00400DCD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DCE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DCF:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -2727,11 +2444,8 @@ _00400DD2:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DD3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DD4:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -2760,11 +2474,8 @@ _00400DE1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DE2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DE3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2807,17 +2518,11 @@ _00400DFC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DFD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DFE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400DFF:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -2871,17 +2576,11 @@ _00400E1F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E20:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E21:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E22:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -2949,11 +2648,8 @@ _00400E4E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E4F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E50:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -2980,11 +2676,8 @@ _00400E5F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E60:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E61:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3013,11 +2706,8 @@ _00400E6E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E6F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E70:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3030,11 +2720,8 @@ _00400E73:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E74:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E75:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -3054,11 +2741,8 @@ _00400E7E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E7F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E80:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3080,27 +2764,21 @@ _00400E86:
   Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E87:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E88:
   StackPtr--;
   if (Stack[StackPtr] != 0)
     goto _00400D7D; //// DW_OP_bra 0xFFFFFEF2 (0x00400E8B, 0x00400D7D)
 _00400E8B:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400E8C:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E8D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400E8E:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -3148,11 +2826,8 @@ _00400EAF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EB0:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400EB1:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -3172,17 +2847,11 @@ _00400EBA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EBB:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400EBC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400EBD:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3222,11 +2891,8 @@ _00400ED1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400ED2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400ED3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3269,17 +2935,11 @@ _00400EEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EED:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400EEE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400EEF:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -3319,11 +2979,8 @@ _00400F03:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F04:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F05:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -3343,17 +3000,11 @@ _00400F0E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F0F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F10:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F11:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3393,17 +3044,11 @@ _00400F25:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F26:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F27:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F28:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3443,11 +3088,8 @@ _00400F3C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F3D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F3E:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3476,17 +3118,11 @@ _00400F4B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F4C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F4D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F4E:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -3526,11 +3162,8 @@ _00400F62:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F63:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F64:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3559,17 +3192,11 @@ _00400F71:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F72:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F73:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F74:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3609,11 +3236,8 @@ _00400F88:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F89:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F8A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -3633,11 +3257,8 @@ _00400F93:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F94:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F95:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3650,11 +3271,8 @@ _00400F98:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F99:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400F9A:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3690,17 +3308,11 @@ _00400FAD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FAE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FAF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FB0:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -3733,11 +3345,8 @@ _00400FBE:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FBF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FC0:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -3757,11 +3366,8 @@ _00400FC9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FCA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FCB:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -3781,17 +3387,11 @@ _00400FD4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FD5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FD6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FD7:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3831,11 +3431,8 @@ _00400FEB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FEC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400FED:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3878,17 +3475,11 @@ _00401006:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401007:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401008:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401009:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -3942,11 +3533,8 @@ _00401029:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040102A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040102B:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -3959,17 +3547,11 @@ _0040102E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040102F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401030:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401031:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -4009,17 +3591,11 @@ _00401045:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401046:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401047:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401048:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4052,17 +3628,11 @@ _00401056:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401057:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401058:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401059:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4095,11 +3665,8 @@ _00401067:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401068:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401069:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4128,17 +3695,11 @@ _00401076:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401077:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401078:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401079:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4178,11 +3739,8 @@ _0040108D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040108E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040108F:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -4195,11 +3753,8 @@ _00401092:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401093:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401094:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4233,11 +3788,8 @@ _004010A9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010AA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010AB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4257,17 +3809,11 @@ _004010B4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010B5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010B6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010B7:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4307,11 +3853,8 @@ _004010CB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010CC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010CD:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -4331,11 +3874,8 @@ _004010D6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010D7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010D8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4355,11 +3895,8 @@ _004010E1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010E2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010E3:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -4379,17 +3916,11 @@ _004010EC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010ED:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010EE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010EF:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -4422,11 +3953,8 @@ _004010FD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010FE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004010FF:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -4446,11 +3974,8 @@ _00401108:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401109:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040110A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -4477,17 +4002,11 @@ _00401119:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040111A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040111B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040111C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -4520,17 +4039,11 @@ _0040112A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040112B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040112C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040112D:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4584,11 +4097,8 @@ _0040114D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040114E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040114F:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -4617,17 +4127,11 @@ _0040115C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040115D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040115E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040115F:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4667,11 +4171,8 @@ _00401173:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401174:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401175:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4700,17 +4201,11 @@ _00401182:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401183:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401184:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401185:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -4750,11 +4245,8 @@ _00401199:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040119A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040119B:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -4767,11 +4259,8 @@ _0040119E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040119F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011A0:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4800,11 +4289,8 @@ _004011AD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011AE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011AF:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -4824,17 +4310,11 @@ _004011B8:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011B9:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011BA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011BB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4874,17 +4354,11 @@ _004011CF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011D0:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011D1:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011D2:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -4917,17 +4391,11 @@ _004011E0:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011E1:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011E2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011E3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -4967,11 +4435,8 @@ _004011F7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011F8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004011F9:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -4991,11 +4456,8 @@ _00401202:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401203:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401204:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5008,11 +4470,8 @@ _00401207:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401208:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401209:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5025,11 +4484,8 @@ _0040120C:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040120D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040120E:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5042,17 +4498,11 @@ _00401211:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401212:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401213:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401214:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5092,11 +4542,8 @@ _00401228:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401229:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040122A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5125,11 +4572,8 @@ _00401237:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401238:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401239:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5142,11 +4586,8 @@ _0040123C:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040123D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040123E:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5175,11 +4616,8 @@ _0040124B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040124C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040124D:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -5199,17 +4637,11 @@ _00401256:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401257:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401258:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401259:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5256,17 +4688,11 @@ _00401273:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401274:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401275:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401276:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -5306,11 +4732,8 @@ _0040128A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040128B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040128C:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -5330,11 +4753,8 @@ _00401295:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401296:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401297:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -5354,17 +4774,11 @@ _004012A0:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012A1:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012A2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012A3:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -5397,11 +4811,8 @@ _004012B1:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012B2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012B3:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5421,11 +4832,8 @@ _004012BC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012BD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012BE:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -5445,11 +4853,8 @@ _004012C7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012C8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012C9:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5478,11 +4883,8 @@ _004012D6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012D7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012D8:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5511,17 +4913,11 @@ _004012E5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012E6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012E7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012E8:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5561,17 +4957,11 @@ _004012FC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012FD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012FE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004012FF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5611,17 +5001,11 @@ _00401313:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401314:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401315:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1);
-#endif
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401316:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5654,11 +5038,11 @@ _00401324:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401325:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401326:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401327:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5698,8 +5082,8 @@ _0040133B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040133C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040133D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5712,8 +5096,8 @@ _00401340:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401341:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401342:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5733,8 +5117,8 @@ _0040134B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040134C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040134D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5747,8 +5131,8 @@ _00401350:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401351:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401352:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5761,8 +5145,8 @@ _00401355:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401356:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401357:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5782,11 +5166,11 @@ _00401360:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401361:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401362:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401363:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -5826,8 +5210,8 @@ _00401377:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401378:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401379:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -5856,8 +5240,8 @@ _00401386:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401387:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401388:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5870,8 +5254,8 @@ _0040138B:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040138C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040138D:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -5891,11 +5275,11 @@ _00401396:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401397:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401398:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401399:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -5935,8 +5319,8 @@ _004013AD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013AE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013AF:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5949,8 +5333,8 @@ _004013B2:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013B3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013B4:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -5977,11 +5361,11 @@ _004013C3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013C4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013C5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013C6:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -6021,8 +5405,8 @@ _004013DA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013DB:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013DC:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6051,8 +5435,8 @@ _004013E9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013EA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013EB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -6072,8 +5456,8 @@ _004013F4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013F5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004013F6:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -6093,8 +5477,8 @@ _004013FF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401400:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401401:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -6128,11 +5512,11 @@ _00401416:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401417:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401418:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401419:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -6172,8 +5556,8 @@ _0040142D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040142E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040142F:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6202,11 +5586,11 @@ _0040143C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040143D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040143E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040143F:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -6246,11 +5630,11 @@ _00401453:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401454:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401455:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401456:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -6297,8 +5681,8 @@ _00401470:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401471:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401472:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -6318,8 +5702,8 @@ _0040147B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040147C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040147D:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6348,11 +5732,11 @@ _0040148A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040148B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040148C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040148D:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -6392,8 +5776,8 @@ _004014A1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014A2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014A3:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -6413,8 +5797,8 @@ _004014AC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014AD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014AE:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -6434,8 +5818,8 @@ _004014B7:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014B8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014B9:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -6448,11 +5832,11 @@ _004014BC:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014BD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014BE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014BF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6492,8 +5876,8 @@ _004014D3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014D4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014D5:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -6522,11 +5906,11 @@ _004014E2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014E3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014E4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014E5:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6566,11 +5950,11 @@ _004014F9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014FA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014FB:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004014FC:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6617,11 +6001,11 @@ _00401516:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401517:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401518:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401519:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -6668,8 +6052,8 @@ _00401533:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401534:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401535:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -6689,8 +6073,8 @@ _0040153E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040153F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401540:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -6703,11 +6087,11 @@ _00401543:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401544:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401545:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401546:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6747,8 +6131,8 @@ _0040155A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040155B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040155C:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6777,11 +6161,11 @@ _00401569:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040156A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040156B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040156C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -6814,8 +6198,8 @@ _0040157A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040157B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040157C:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -6835,8 +6219,8 @@ _00401585:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401586:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401587:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -6849,11 +6233,11 @@ _0040158A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040158B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040158C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040158D:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -6893,11 +6277,11 @@ _004015A1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015A2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015A3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015A4:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6951,11 +6335,11 @@ _004015C4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015C5:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015C6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015C7:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -6995,11 +6379,11 @@ _004015DB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015DC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015DD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004015DE:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -7053,11 +6437,11 @@ _004015FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015FF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401600:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401601:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7097,8 +6481,8 @@ _00401615:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401616:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401617:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -7127,8 +6511,8 @@ _00401624:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401625:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401626:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -7148,8 +6532,8 @@ _0040162F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401630:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401631:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -7183,8 +6567,8 @@ _00401646:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401647:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401648:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7204,8 +6588,8 @@ _00401651:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401652:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401653:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -7225,11 +6609,11 @@ _0040165C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040165D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040165E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040165F:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7262,8 +6646,8 @@ _0040166D:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040166E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040166F:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -7283,8 +6667,8 @@ _00401678:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401679:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040167A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7304,11 +6688,11 @@ _00401683:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401684:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401685:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401686:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7341,8 +6725,8 @@ _00401694:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401695:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401696:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7369,8 +6753,8 @@ _004016A5:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016A6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016A7:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -7383,8 +6767,8 @@ _004016AA:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016AB:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016AC:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7404,11 +6788,11 @@ _004016B5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016B6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016B7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016B8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7441,8 +6825,8 @@ _004016C6:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016C7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016C8:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
   StackPtr++;
@@ -7462,8 +6846,8 @@ _004016D1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016D2:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016D3:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7483,8 +6867,8 @@ _004016DC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016DD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016DE:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7518,8 +6902,8 @@ _004016F3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016F4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004016F5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7539,8 +6923,8 @@ _004016FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016FF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401700:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -7560,11 +6944,11 @@ _00401709:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040170A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040170B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040170C:
   Stack[StackPtr] = DW_OP_const1u(0x05);
   StackPtr++;
@@ -7604,11 +6988,11 @@ _00401720:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401721:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401722:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401723:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7641,11 +7025,11 @@ _00401731:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401732:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401733:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401734:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -7685,8 +7069,8 @@ _00401748:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401749:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040174A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -7727,11 +7111,11 @@ _00401765:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401766:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401767:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401768:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -7771,8 +7155,8 @@ _0040177C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040177D:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040177E:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -7792,11 +7176,11 @@ _00401787:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401788:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401789:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040178A:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -7836,11 +7220,11 @@ _0040179E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040179F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017A0:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017A1:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -7873,8 +7257,8 @@ _004017AF:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017B0:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017B1:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7894,11 +7278,11 @@ _004017BA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017BB:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017BC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017BD:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -7931,11 +7315,11 @@ _004017CB:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017CC:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017CD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017CE:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -7975,11 +7359,11 @@ _004017E2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017E3:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017E4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017E5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8012,8 +7396,8 @@ _004017F3:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017F4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004017F5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8033,11 +7417,11 @@ _004017FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017FF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401800:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401801:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -8070,8 +7454,8 @@ _0040180F:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401810:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401811:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8084,8 +7468,8 @@ _00401814:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401815:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401816:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8126,8 +7510,8 @@ _00401831:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401832:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401833:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8140,11 +7524,11 @@ _00401836:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401837:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401838:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401839:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8184,8 +7568,8 @@ _0040184D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040184E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040184F:
   Stack[StackPtr] = DW_OP_const1u(0x09);
   StackPtr++;
@@ -8212,8 +7596,8 @@ _0040185E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040185F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401860:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8242,11 +7626,11 @@ _0040186D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040186E:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040186F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401870:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8300,11 +7684,11 @@ _00401890:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401891:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401892:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401893:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8344,11 +7728,11 @@ _004018A7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018A8:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018A9:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018AA:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8388,8 +7772,8 @@ _004018BE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018BF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018C0:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -8409,8 +7793,8 @@ _004018C9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018CA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018CB:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8423,11 +7807,11 @@ _004018CE:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018CF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018D0:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018D1:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8467,11 +7851,11 @@ _004018E5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018E6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018E7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018E8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8511,11 +7895,11 @@ _004018FC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018FD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018FE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004018FF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8555,8 +7939,8 @@ _00401913:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401914:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401915:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -8576,8 +7960,8 @@ _0040191E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040191F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401920:
   Stack[StackPtr] = DW_OP_const1u(0x03);
   StackPtr++;
@@ -8597,8 +7981,8 @@ _00401929:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040192A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040192B:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8639,11 +8023,11 @@ _00401946:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401947:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401948:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401949:
   Stack[StackPtr] = DW_OP_const1u(0x06);
   StackPtr++;
@@ -8690,8 +8074,8 @@ _00401963:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401964:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401965:
   Stack[StackPtr] = DW_OP_const1u(0x07);
   StackPtr++;
@@ -8711,11 +8095,11 @@ _0040196E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040196F:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401970:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00401971:
   Stack[StackPtr] = DW_OP_const1u(0x02);
   StackPtr++;
@@ -8750,36 +8134,24 @@ _0040197F:
 _00401980:
   goto _004005F0; // DW_OP_skip 0xFFFFEC6D (0x004005F0)
 _004005F0:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S24)
 _004005F2:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005F3:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S23)
 _004005F5:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005F6:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S22)
 _004005F8:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S23)
 _004005FA:
   Stack[StackPtr] = DW_OP_const1u(0x20);
@@ -8810,49 +8182,49 @@ _00400603:
 _00400604:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400605:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400606:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400607:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400608:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400609:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040060A:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040060B:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040060C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040060D:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040060E:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040060F:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400610:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400611:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400612:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400613:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400614:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400615:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400616:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400617:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400618:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400619:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040061A:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040061B:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040061C:
@@ -8860,7 +8232,7 @@ _0040061C:
 _0040061D:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040061E:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040061F:
   goto _004003BC; // DW_OP_skip 0xFFFFFD9A (0x004003BC)
 _004003BC:
@@ -8868,13 +8240,10 @@ _004003BC:
 _004003BD:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003BE:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004003BF:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S14)
 _004003C1:
   StackPtr -= 2;
@@ -8896,20 +8265,17 @@ _004003C9:
 _004003CA:
   goto _004003B6; // DW_OP_skip 0xFFFFFFE9 (0x004003B6)
 _004003CD:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004003CE:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003CF:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003D0:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004003D1:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004003D2:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S12)
 _004003D4:
   Stack[StackPtr] = DW_OP_lit(00);
@@ -8917,8 +8283,8 @@ _004003D4:
 _004003D5:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004003D6:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004003D7:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -8945,16 +8311,16 @@ _004003EE:
 _004003EF:
   goto _004004E7; // DW_OP_skip 0x000000F5 (0x004004E7)
 _004004E7:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004004E8:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004E9:
   Stack[StackPtr] = DW_OP_lit(00);
   StackPtr++;
 _004004EA:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004004EB:
   Stack[StackPtr] = DW_OP_lit(02);
   StackPtr++;
@@ -8978,7 +8344,7 @@ _004004F8:
   StackPtr++;
 _004004F9:
   StackPtr--;
-  Stack[StackPtr] = DW_OP_deref_size(Stack[StackPtr]);
+  Stack[StackPtr] = DW_OP_deref_size(4, Stack[StackPtr]);
   StackPtr++;
 _004004FB:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -9004,10 +8370,7 @@ _00400506:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400507:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 1];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 1);
-#endif
+  Stack[StackPtr] = DW_OP_pick(1);
   StackPtr++; // DW_OP_pick(S18)
 _00400509:
   Stack[StackPtr] = DW_OP_lit(02);
@@ -9044,8 +8407,8 @@ _00400519:
 _0040051A:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040051B:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040051C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040051D:
@@ -9053,14 +8416,14 @@ _0040051D:
   Stack[StackPtr] = DW_OP_or(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040051E:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S17)
 _00400520:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
+#ifdef Unroll
+	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _00400520 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
+#endif
   StackPtr++;
 _00400521:
   Stack[StackPtr] = DW_OP_const1u(0x20);
@@ -9078,10 +8441,10 @@ _00400525:
 _00400526:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400527:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400528:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400529:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -9108,10 +8471,7 @@ _00400540:
 _00400541:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400542:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S17)
 _00400544:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -9125,8 +8485,8 @@ _00400547:
   Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400548:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400549:
   Stack[StackPtr] = DW_OP_lit(06);
   StackPtr++;
@@ -9139,9 +8499,9 @@ _0040054B:
   if (Stack[StackPtr] != 0)
     goto _004004EA; //// DW_OP_bra 0xFFFFFF9C (0x0040054E, 0x004004EA)
 _0040054E:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040054F:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400550:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400551:
@@ -9155,14 +8515,11 @@ _00400553:
 _00400556:
   goto _004003F2; // DW_OP_skip 0xFFFFFE99 (0x004003F2)
 _004003F2:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S13)
 _004003F4:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004003F5:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -9189,10 +8546,7 @@ _0040040C:
 _0040040D:
   goto _00400480; // DW_OP_skip 0x00000070 (0x00400480)
 _00400480:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S17)
 _00400482:
   StackPtr -= 2;
@@ -9201,18 +8555,15 @@ _00400482:
 _00400483:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400484:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S16)
 _00400486:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400487:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400488:
   Stack[StackPtr] = DW_OP_const1u(0x04);
   StackPtr++;
@@ -9241,10 +8592,7 @@ _00400495:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400496:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S17)
 _00400498:
   StackPtr -= 2;
@@ -9253,8 +8601,8 @@ _00400498:
 _00400499:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040049A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040049B:
   Stack[StackPtr] = DW_OP_const1u(0x12);
   StackPtr++;
@@ -9283,10 +8631,7 @@ _004004A8:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004A9:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S16)
 _004004AB:
   StackPtr -= 2;
@@ -9297,13 +8642,13 @@ _004004AC:
 _004004AD:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004AE:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004004AF:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004B0:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004B1:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004004B2:
   goto _00400410; // DW_OP_skip 0xFFFFFF5B (0x00400410)
 _00400410:
@@ -9326,10 +8671,10 @@ _00400415:
 _00400416:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400417:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400418:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _00400419:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040041A:
@@ -9338,8 +8683,8 @@ _0040041A:
 _0040041B:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040041C:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040041D:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -9368,14 +8713,11 @@ _00400435:
 _00400559:
   goto _00400438; // DW_OP_skip 0xFFFFFEDC (0x00400438)
 _00400438:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 4];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 4);
-#endif
+  Stack[StackPtr] = DW_OP_pick(4);
   StackPtr++; // DW_OP_pick(S13)
 _0040043A:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _0040043B:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
   StackPtr++;
@@ -9404,18 +8746,15 @@ _00400453:
 _004004B5:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004004B6:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S17)
 _004004B8:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004B9:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004004BA:
   Stack[StackPtr] = DW_OP_const1u(0x1A);
   StackPtr++;
@@ -9446,28 +8785,22 @@ _004004C7:
 _004004C8:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004004C9:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S16)
 _004004CB:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004CC:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S17)
 _004004CE:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004CF:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004004D0:
   Stack[StackPtr] = DW_OP_const1u(0x0E);
   StackPtr++;
@@ -9500,13 +8833,13 @@ _004004DE:
 _004004DF:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004E0:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004004E1:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004E2:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004004E3:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004004E4:
   goto _00400456; // DW_OP_skip 0xFFFFFF6F (0x00400456)
 _00400456:
@@ -9529,7 +8862,7 @@ _0040045B:
 _0040045C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040045D:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040045E:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040045F:
@@ -9546,10 +8879,7 @@ _00400462:
 _00400463:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400464:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S12)
 _00400466:
   Stack[StackPtr] = DW_OP_lit(15);
@@ -9567,19 +8897,19 @@ _0040046B:
 _0040046C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040046D:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _0040046E:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040046F:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400470:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400471:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400472:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400473:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400474:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400475:
@@ -9597,27 +8927,21 @@ _004002DF:
 _004002E0:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004002E1:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004002E2:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004002E3:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004002E4:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _004002E5:
   Stack[StackPtr] = DW_OP_lit(01);
   StackPtr++;
 _004002E6:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S7)
 _004002E8:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 2];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 2);
-#endif
+  Stack[StackPtr] = DW_OP_pick(2);
   StackPtr++; // DW_OP_pick(S8)
 _004002EA:
   goto _0040030B; // DW_OP_skip 0x0000001E (0x0040030B)
@@ -9628,18 +8952,12 @@ _004002F4:
 _004002F5:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004002F6:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
-#endif
+  Stack[StackPtr] = DW_OP_pick(3);
   StackPtr++; // DW_OP_pick(S7)
 _004002F8:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004002F9:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 5];
-#ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 5);
-#endif
+  Stack[StackPtr] = DW_OP_pick(5);
   StackPtr++; // DW_OP_pick(S6)
 _004002FB:
   Stack[StackPtr] = DW_OP_lit(01);
@@ -9649,8 +8967,8 @@ _004002FC:
   Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004002FD:
-  Stack[StackPtr] = Stack[StackPtr - 1];
-  printf("S%d = S%d;\n", StackPtr, StackPtr - 1);StackPtr++; // DW_OP_dup();
+  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  StackPtr++;
 _004002FE:
   Stack[StackPtr] = DW_OP_lit(04);
   StackPtr++;
@@ -9663,17 +8981,17 @@ _00400300:
   if (Stack[StackPtr] != 0)
     goto _004002CF; //// DW_OP_bra 0xFFFFFFCC (0x00400303, 0x004002CF)
 _00400303:
-  StackPtr--; // DW_OP_drop();
+  StackPtr--; // DW_OP_drop(&StackPtr);
 _00400304:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
+  Stack[StackPtr] = DW_OP_pick(3);
 #ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
+	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _00400304 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
 #endif
   StackPtr++; // DW_OP_pick(S8)
 _00400306:
-  Stack[StackPtr] = Stack[StackPtr - 1 - 3];
+  Stack[StackPtr] = DW_OP_pick(3);
 #ifdef Unroll
-	printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - 3);
+	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _00400306 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
 #endif
   StackPtr++; // DW_OP_pick(S9)
 _00400308:
@@ -9683,7 +9001,7 @@ _00400285:
   StackPtr++;
 _0040028E:
   StackPtr -= 2;
-  Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
+  Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);	
   StackPtr++;
 _0040028F:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -9725,14 +9043,16 @@ _004002B2:
   Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004002B3:
-  StackPtr--;
-  printf("Result: %llX\n", Stack[StackPtr]);
-  if (Stack[StackPtr] != 0)
-    goto _004002C2; //// DW_OP_bra 0x0000000C (0x004002B6, 0x004002C2)
+	StackPtr--;
+	printf("Result = S%d; // %llX\n", StackPtr, Stack[StackPtr]);
+	printf("printf(\"// Finale Check (X == 0) => %%d %%lX\\n\", %d, S%d); // _00400306 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
+	if (Stack[StackPtr] != 0)
+		goto _004002C2; //// DW_OP_bra 0x0000000C (0x004002B6, 0x004002C2)
 _004002B6:
-  Stack[StackPtr] = DW_OP_const8u(0x0000000000403098);
-  StackPtr++;
-  //_004002BF: goto _004082C1; // DW_OP_skip 0x00007FFF (0x004082C1)
+	// Disable this here to not destroy the value
+	//Stack[StackPtr] = DW_OP_const8u(0x0000000000403098);
+	//StackPtr++;
+	//_004002BF: goto _004082C1; // DW_OP_skip 0x00007FFF (0x004082C1)
 
   return 0x00403098;
 };
@@ -9743,9 +9063,11 @@ int main(void) {
   // SSTIC{a947d6980ccf7b87cb8d7c246} <= Example key
   // Build up flag
   // 25 chars huma readable
-  char FlagInner[] = "A11111112222222233333333Z";
+  // char FlagInner[] = "A11111112222222233333333Z"; //190329E3C524966B
+  //char FlagInner[] = "Z11111112222222233333333Z"; // D7783616EF60E415
+	char FlagInner[] = "1111111111111111111111111";
   // klee_make_symbolic(FlagInner, 26, "InnerFlag");
-  //printf("%d\n", sizeof(FlagInner));
+  // printf("%d\n", sizeof(FlagInner));
   for (int i = 0; i < 25; i++) {
     if (FlagInner[i] >= '0' && FlagInner[i] <= '9')
       continue;
@@ -9760,15 +9082,16 @@ int main(void) {
     exit(1);
   }
 
-  char Flag[] = "SSTIC{1111111122222222333333334}";
-  memcpy(Flag + 6, FlagInner, 25);
+  char Flag[] = "SSTIC{1111111122222222333333334}"; // Only => 2DB6A6078FFCF147
+  memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
 
   uint64_t *SimArgv[2];
   SimArgv[0] = (uint64_t *)0x1111111111111111;
   SimArgv[1] = (uint64_t *)Flag;
 
+	printf("//%s\n", Flag);
   uint64_t Result = VM_Func(Flag);
-  printf("Result %llX\n", Result);
+  printf("//Result %llX\n", Result);
 
   return 0;
 }

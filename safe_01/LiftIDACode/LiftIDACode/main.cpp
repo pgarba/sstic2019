@@ -91,11 +91,9 @@ uint64_t __fastcall VM_Func(const char* Flag)
 	uint64_t STemp1, STemp2,STemp3;
 	uint64_t Result;
 
-#include "code.txt"
-
-	printf("Result: %016llX\n", Result);
-
-	return 0;
+	#include "code.h"
+	
+	return Result;
 }
 
 int main(void) {
@@ -104,7 +102,8 @@ int main(void) {
 	//SSTIC{a947d6980ccf7b87cb8d7c246} <= Example key
 // Build up flag
 // 25 chars huma readable
-	char FlagInner[] = "A11111112222222233333333Z";
+	//char FlagInner[] = "Z11111112222222233333333Z";
+	char FlagInner[] =   "1111111111111111111111111";
 	//klee_make_symbolic(FlagInner, 26, "InnerFlag");
 	printf("%d\n", sizeof(FlagInner));
 	for (int i = 0; i < 25; i++) {
@@ -121,8 +120,8 @@ int main(void) {
 		exit(1);
 	}
 
-	char Flag[] = "SSTIC{1111111122222222333333334}";
-	memcpy(Flag + 6, FlagInner, 25);
+	char Flag[] = "SSTIC{1111111122222222333333334}"; // Only => 2DB6A6078FFCF147
+	memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
 
 	uint64_t * SimArgv[2];
 	SimArgv[0] = (uint64_t*)0x1111111111111111;

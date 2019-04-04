@@ -722,7 +722,7 @@ int main(int argc, char **argv) {
   //SSTIC{a947d6980ccf7b87cb8d7c246} <= Example key
 // Build up flag
 // 25 chars huma readable
-  char FlagInner[] = "A11111112222222233333333Z";
+  char FlagInner[] = "Z11111112222222233333333Z";
   //klee_make_symbolic(FlagInner, 25, "InnerFlag");
   for (int i = 0; i < 25; i++){
     if (FlagInner[i] >= '0' && FlagInner[i] <= '9')
