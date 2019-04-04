@@ -11,6 +11,8 @@
 #include "df.h"
 #include "dwarf2.h"
 
+//#define LIFT
+
 struct Edge {
 	uint64_t NextVA;
 	int StackPtr;
@@ -33,6 +35,8 @@ int InstCount = 1;
 // The Stack Pointer
 int stack_elt = 1;
 
+std::string Line;
+
 std::string getStackPtrStr() {
 	return "S" + std::to_string(stack_elt);
 }
@@ -53,13 +57,16 @@ uint64_t getBinaryVA(const void* VA) {
 }
 
 Edges disassemble(const unsigned char* op_ptr, Edges &E) {
-	printf("_%08X: ", (uint64_t)getBinaryVA(op_ptr));
+	Line = "";
+	char buffer[1024] = { 0 };
+	sprintf(buffer, "_%08X:\t\t", (uint64_t)getBinaryVA(op_ptr));
+	Line += buffer;
 
 	enum dwarf_location_atom op = (dwarf_location_atom)* op_ptr++;
 	_uleb128_t reg, utmp;
 	_sleb128_t offset, stmp;
 
-	//printf("%02X ", op);
+	//sprintf(buffer, "%02X ", op);
 
 	switch (op) {
 	case DW_OP_lit0:
@@ -94,7 +101,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 	case DW_OP_lit29:
 	case DW_OP_lit30:
 	case DW_OP_lit31:
-		printf("Stack[StackPtr] = DW_OP_lit(%02d);StackPtr++;\n", op - DW_OP_lit0);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_lit(%02d);StackPtr++;\n", op - DW_OP_lit0);
+#else
+		sprintf(buffer, "S%d = DW_OP_lit(%02d);\n", stack_elt, op - DW_OP_lit0);
+#endif
+		Line += buffer;
 		stack_elt++;
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 		//result = op - DW_OP_lit0;									
@@ -102,7 +114,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		break;
 
 	case DW_OP_addr:
-		printf("Stack[StackPtr] = DW_OP_addr(0x%08X);StackPtr++;\n", op_ptr);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_addr(0x%08X);StackPtr++;\n", op_ptr);
+#else
+		sprintf(buffer, "DW_OP_addr(0x%08X);\n", op_ptr);
+#endif
+		Line += buffer;
 		//result = (_Unwind_Word)(_Unwind_Ptr)read_pointer(op_ptr);
 		op_ptr += sizeof(void*);
 		stack_elt++;
@@ -111,14 +128,19 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		break;
 
 	case DW_OP_GNU_encoded_addr: {
-		printf("DW_OP_GNU_encoded_addr\n");
+		sprintf(buffer, "DW_OP_GNU_encoded_addr\n");
 		//_Unwind_Ptr presult;
 		//op_ptr = read_encoded_value(context, *op_ptr, op_ptr + 1, &presult);
 		//result = presult;
 	} break;
 
 	case DW_OP_const1u:
-		printf("Stack[StackPtr] = DW_OP_const1u(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const1u(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);
+#else
+		sprintf(buffer, "S%d = DW_OP_const1u(0x%02X);\n", stack_elt, *(uint8_t*)op_ptr);
+#endif
+		Line += buffer;
 		//result = read_1u(op_ptr);
 		op_ptr += 1;
 		// printDebug("0x%X\n", result);			
@@ -127,7 +149,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const1s:
-		printf("Stack[StackPtr] = DW_OP_const1s(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const1s(0x%02X);StackPtr++;\n", *(uint8_t*)op_ptr);
+		Line += buffer;
 		//result = read_1s(op_ptr);
 		op_ptr += 1;
 		// printDebug("0x%X\n", result);			
@@ -136,7 +159,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const2u:
-		printf("Stack[StackPtr] = DW_OP_const2u(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const2u(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);
+		Line += buffer;
 		//result = read_2u(op_ptr);			
 		op_ptr += 2;
 		stack_elt++;
@@ -144,7 +168,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const2s:
-		printf("Stack[StackPtr] = DW_OP_const2s(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const2s(0x%04X);StackPtr++;\n", *(uint16_t*)op_ptr);
+		Line += buffer;
 		//result = read_2s(op_ptr);
 		op_ptr += 2;
 		stack_elt++;
@@ -152,7 +177,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const4u:
-		printf("Stack[StackPtr] = DW_OP_const4u(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const4u(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);
+#else
+		sprintf(buffer, "S%d = DW_OP_const4u(0x%08X);\n", stack_elt, *(uint32_t*)op_ptr);
+#endif
+		Line += buffer;
 		//result = read_4u(op_ptr);
 		op_ptr += 4;
 		stack_elt++;
@@ -160,7 +190,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const4s:
-		printf("Stack[StackPtr] = DW_OP_const4s(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const4s(0x%08X);StackPtr++;\n", *(uint32_t*)op_ptr);
+		Line += buffer;
 		//result = read_4s(op_ptr);
 		op_ptr += 4;
 		stack_elt++;
@@ -168,7 +199,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const8u:
-		printf("Stack[StackPtr] = DW_OP_const8u(0x%016llX);StackPtr++;\n", *(uint64_t *)op_ptr);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const8u(0x%016llX);StackPtr++;\n", *(uint64_t *)op_ptr);
+#else
+		sprintf(buffer, "S%d = DW_OP_const8u(0x%016llX);\n",stack_elt , *(uint64_t *)op_ptr);
+#endif
+		Line += buffer;
 		//printDebug("DW_OP_const8u *(%llX) = ", op_ptr);
 		//result = read_8u(op_ptr);
 		//printDebug("%llX\n", result);
@@ -178,7 +214,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_const8s:
-		printf("Stack[StackPtr] = DW_OP_const8s(0x%016llX);StackPtr++;\n", *(uint64_t*)op_ptr);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_const8s(0x%016llX);StackPtr++;\n", *(uint64_t*)op_ptr);
+		Line += buffer;
 		//result = read_8s(op_ptr);
 		op_ptr += 8;
 		stack_elt++;
@@ -186,12 +223,14 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 		break;
 	case DW_OP_constu:
-		printf("DW_OP_constu();\n");
+		sprintf(buffer, "DW_OP_constu();\n");
+		Line += buffer;
 		//op_ptr = read_uleb128(op_ptr, &utmp);
 		//result = (_Unwind_Word)utmp;
 		break;
 	case DW_OP_consts:
-		printf("DW_OP_consts();\n");
+		sprintf(buffer, "DW_OP_consts();\n");
+		Line += buffer;
 		//op_ptr = read_sleb128(op_ptr, &stmp);
 		//result = (_Unwind_Sword)stmp;
 		break;
@@ -228,14 +267,20 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 	case DW_OP_reg29:
 	case DW_OP_reg30:
 	case DW_OP_reg31:
-		printf("Stack[StackPtr] = DW_OP_reg(%d);StackPtr++;\n", op - DW_OP_reg0);
+#ifdef LIFT
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_reg(%d);StackPtr++;\n", op - DW_OP_reg0);
+#else
+		sprintf(buffer, "S%d = DW_OP_reg(%d);\n", stack_elt, op - DW_OP_reg0);
+#endif
+		Line += buffer;
 		//result = _Unwind_GetGR(context, op - DW_OP_reg0);				
 		stack_elt++;
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 		return E;
 		//break;
 	case DW_OP_regx:
-		printf("DW_OP_regx ...\n");
+		sprintf(buffer, "DW_OP_regx ...\n");
+		Line += buffer;
 		//op_ptr = read_uleb128(op_ptr, &reg);
 		//result = _Unwind_GetGR(context, reg);
 		break;
@@ -272,21 +317,26 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 	case DW_OP_breg29:
 	case DW_OP_breg30:
 	case DW_OP_breg31:
-		printf("DW_OP_breg(%d);\n", op - DW_OP_breg0);
+		sprintf(buffer, "DW_OP_breg(%d);\n", op - DW_OP_breg0);
+		Line += buffer;
 		//op_ptr = read_sleb128(op_ptr, &offset);
 		//result = _Unwind_GetGR(context, op - DW_OP_breg0) + offset;
 		break;
 	case DW_OP_bregx:
-		printf("DW_OP_bregx()\n");
+		sprintf(buffer, "DW_OP_bregx();\n");
+		Line += buffer;
 		//op_ptr = read_uleb128(op_ptr, &reg);
 		//op_ptr = read_sleb128(op_ptr, &offset);
 		//result = _Unwind_GetGR(context, reg) + (_Unwind_Word)offset;
 		break;
 
 	case DW_OP_dup:
-		//printf("Stack[StackPtr] = Stack[StackPtr-1];StackPtr++; // DW_OP_dup();\n", stack_elt - 1);
-		printf("Stack[StackPtr] = DW_OP_dup(StackPtr-1);StackPtr++;\n");
-
+#ifdef LIFT		
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_dup(StackPtr-1);StackPtr++;\n");
+#else
+		sprintf(buffer, "S%d = DW_OP_dup(S%d);\n", stack_elt, stack_elt-1);
+#endif
+		Line += buffer;
 		//gcc_assert(stack_elt);
 		//result = stack[stack_elt - 1];
 		//printDebug("0x%llX\n", result);			
@@ -296,8 +346,13 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		break;
 
 	case DW_OP_drop:
-		//printf("StackPtr--; // DW_OP_drop();\n");
-		printf("StackPtr--; // DW_OP_drop(&StackPtr);\n");
+		//sprintf(buffer, "StackPtr--; // DW_OP_drop();\n");		
+#ifdef LIFT		
+		sprintf(buffer, "StackPtr--; // DW_OP_drop(&StackPtr);\n");
+#else
+		sprintf(buffer, "DW_OP_drop();\n");
+#endif
+		Line += buffer;
 		//gcc_assert(stack_elt);			
 		stack_elt -= 1;
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
@@ -307,8 +362,13 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 	case DW_OP_pick:
 		offset = *op_ptr++;
-		//printf("Stack[StackPtr] = Stack[StackPtr - 1 - %d];StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
-		printf("Stack[StackPtr] = DW_OP_pick(%d);StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
+		//sprintf(buffer, "Stack[StackPtr] = Stack[StackPtr - 1 - %d];StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);		
+#ifdef LIFT		
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_pick(%d);StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
+#else
+		sprintf(buffer, "S%d = DW_OP_pick(%d); // %i\n", stack_elt, offset, stack_elt - 1 - offset);
+#endif
+		Line += buffer;
 		//gcc_assert(offset < stack_elt - 1);
 		//result = stack[stack_elt - 1 - offset];
 		//printDebug("0x%llX\n", result);
@@ -318,7 +378,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		break;
 
 	case DW_OP_over:
-		printf("!!!Stack[StackPtr]  = DW_OP_over(S%d);StackPtr++;\n", stack_elt, stack_elt - 2);
+		sprintf(buffer, "!!!Stack[StackPtr]  = DW_OP_over(S%d);StackPtr++;\n", stack_elt, stack_elt - 2);
+		Line += buffer;
 		//gcc_assert(stack_elt >= 2);
 		//result = stack[stack_elt - 2];
 
@@ -328,7 +389,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		break;
 
 	case DW_OP_swap: {
-		printf("DW_OP_swap(Stack[StackPtr-1], Stack[StackPtr-2]);\n");
+#ifdef LIFT		
+		sprintf(buffer, "DW_OP_swap(Stack[StackPtr-1], Stack[StackPtr-2]);\n");
+#else
+		sprintf(buffer, "DW_OP_swap(S%d, S%d);\n", stack_elt - 1, stack_elt - 2);
+#endif
+		Line += buffer;
 		//_Unwind_Word t;
 		//gcc_assert(stack_elt >= 2);
 		//t = stack[stack_elt - 1];
@@ -342,7 +408,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 	}
 
 	case DW_OP_rot: {
-		printf("DW_OP_rot(Stack[StackPtr-1], Stack[StackPtr-2], Stack[StackPtr-3]);\n");
+#ifdef LIFT		
+		sprintf(buffer, "DW_OP_rot(Stack[StackPtr-1], Stack[StackPtr-2], Stack[StackPtr-3]);\n");
+#else
+		sprintf(buffer, "DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
+#endif		
+		Line += buffer;
 		//_Unwind_Word t1, t2, t3;
 
 		//gcc_assert(stack_elt >= 3);
@@ -368,14 +439,20 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		/* Unary operations.  */
 		//gcc_assert(stack_elt);
 		stack_elt -= 1;
-
-		printf("StackPtr--;");
-
+#ifdef LIFT
+		sprintf(buffer, "StackPtr--;");
+		Line += buffer;
+#endif		
 		//result = stack[stack_elt];
 
 		switch (op) {
 		case DW_OP_deref: {
-			printf("Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_deref(S%d);\n", stack_elt, stack_elt);
+#endif				
+			Line += buffer;
 			//void* ptr = (void*)(_Unwind_Ptr)result;
 			//result = (_Unwind_Ptr)read_pointer(ptr);				
 			stack_elt += 1;
@@ -385,8 +462,12 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 		case DW_OP_deref_size: {
 			uint8_t i = *op_ptr++;
-			printf("Stack[StackPtr] = DW_OP_deref_size(%d, Stack[StackPtr]);StackPtr++;\n", i);
-
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_deref_size(%d, Stack[StackPtr]);StackPtr++;\n", i);
+#else
+			sprintf(buffer, "S%d = DW_OP_deref_size(%d, S%d);\n", stack_elt, i, stack_elt);
+#endif			
+			Line += buffer;
 			/*
 			void* ptr = (void*)(_Unwind_Ptr)result;
 			switch (*op_ptr++) {
@@ -411,30 +492,46 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 		} break;
 
-		case DW_OP_abs:
-			printf("Stack[StackPtr] = DW_OP_abs(Stack[StackPtr]);StackPtr++;\n");
+		case DW_OP_abs:			
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_abs(Stack[StackPtr]);StackPtr++;\n");
+#else
+			sprintf(buffer, "DW_OP_abs();\n");
+#endif			
+			Line += buffer;
 			//if ((_Unwind_Sword)result < 0)
 			//	result = -result;							
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
-		case DW_OP_neg:
-			printf("Stack[StackPtr] = DW_OP_neg(Stack[StackPtr]);StackPtr++;\n");
+		case DW_OP_neg:			
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_neg(Stack[StackPtr]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_neg(S%d);\n", stack_elt, stack_elt);
+#endif	
+			Line += buffer;
 			//result = -result;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
-		case DW_OP_not:
-			printf("Stack[StackPtr] = DW_OP_not(Stack[StackPtr]);StackPtr++;\n");
+		case DW_OP_not:			
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_not(Stack[StackPtr]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_not(S%d);\n", stack_elt, stack_elt);
+#endif	
+			Line += buffer;
 			//result = ~result;			
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_plus_uconst:
-			printf("DW_OP_plus_uconst\n");
+			sprintf(buffer, "DW_OP_plus_uconst\n");
+			Line += buffer;
 			//op_ptr = read_uleb128(op_ptr, &utmp);
 			//result += (_Unwind_Word)utmp;
 			//break;
@@ -469,23 +566,35 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		//_Unwind_Word first, second;
 		//gcc_assert(stack_elt >= 2);
 		stack_elt -= 2;
-
-		printf("StackPtr -= 2;");
+#ifdef LIFT
+		sprintf(buffer, "StackPtr -= 2;");
+		Line += buffer;
+#endif
 
 		//second = stack[stack_elt];
 		//first = stack[stack_elt + 1];
 
 		switch (op) {
 		case DW_OP_and: {
-			printf("Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_and(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second & first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 		}
 										break;
-		case DW_OP_div:
-			printf("Stack[StackPtr] = DW_OP_div(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+		case DW_OP_div:			
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_div(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_div(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//(_Unwind_Sword)second / (_Unwind_Sword)first);
 			//result = (_Unwind_Sword)second / (_Unwind_Sword)first;
 			stack_elt += 1;
@@ -493,105 +602,156 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 			return E;
 			break;
 		case DW_OP_minus:
-			printf("Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_minus(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second - first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_mod:
-			printf("Stack[StackPtr] = DW_OP_mod(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_mod(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_mod(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second % first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_mul:
-			printf("Stack[StackPtr] = DW_OP_mul(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_mul(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_mul(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif			
+			Line += buffer;
 			//result = second * first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_or:
-			printf("Stack[StackPtr] = DW_OP_or(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_or(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_or(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second | first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_plus:
-			printf("Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_plus(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second + first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_shl:
-			printf("Stack[StackPtr] = DW_OP_shl(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_shl(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_shl(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second << first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_shr:
-			printf("Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_shr(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second >> first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_shra:
-			printf("Stack[StackPtr] = DW_OP_shra(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_shra(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_shra(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = (_Unwind_Sword)second >> first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_xor:
-			printf("Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#ifdef LIFT		
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+#else
+			sprintf(buffer, "S%d = DW_OP_xor(S%d, S%d);\n", stack_elt, stack_elt, stack_elt + 1);
+#endif				
+			Line += buffer;
 			//result = second ^ first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_le:
-			printf("Stack[StackPtr] = DW_OP_le(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_le(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second <= (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_ge:
-			printf("Stack[StackPtr] = DW_OP_ge(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_ge(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second >= (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_eq:
-			printf("Stack[StackPtr] = DW_OP_eq(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_eq(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second == (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_lt:
-			printf("Stack[StackPtr] = DW_OP_lt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_lt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second < (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_gt:
-			printf("Stack[StackPtr] = DW_OP_gt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_gt(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second > (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 			return E;
 			break;
 		case DW_OP_ne:
-			printf("Stack[StackPtr] = DW_OP_ne(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			sprintf(buffer, "Stack[StackPtr] = DW_OP_ne(Stack[StackPtr], Stack[StackPtr+1]);StackPtr++;\n");
+			Line += buffer;
 			//result = (_Unwind_Sword)second != (_Unwind_Sword)first;
 			stack_elt += 1;
 			E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
@@ -611,8 +771,14 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		_sleb128_t addr = (_sleb128_t)getBinaryVA(op_ptr);
 		op_ptr = (uint8_t*)(addr + offset);
 
-		printf("goto _%08X; // DW_OP_skip 0x%08X (0x%08X)\n", op_ptr, offset, op_ptr);
-
+#ifdef LIFT		
+		sprintf(buffer, "goto _%08X; // DW_OP_skip 0x%08X (0x%08X)\n", op_ptr, offset, op_ptr);
+#else
+		sprintf(buffer, "DW_OP_skip(0x%08X); // (0x%08X)\n", offset, op_ptr);
+		// Reset stack as we reach a new BB after that
+		// stack_elt = 1;
+#endif											
+		Line += buffer;
 		E.push_back(Edge(stack_elt, (uint64_t)op_ptr));
 		return E;
 	}
@@ -620,16 +786,24 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 	case DW_OP_bra:
 		stack_elt -= 1;
-
-		printf("StackPtr--;");
+#ifdef LIFT
+		sprintf(buffer, "StackPtr--;");
+		Line += buffer;
+#endif
 
 		//offset = read_2s(op_ptr);
 		offset = *(int16_t*)op_ptr;
 
 		op_ptr += 2;
-
-		printf("if (Stack[StackPtr] != 0) goto _%08X; //", getBinaryVA(op_ptr + offset));
-		printf("// DW_OP_bra 0x%08X (0x%08X, 0x%08X)\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
+#ifdef LIFT		
+		sprintf(buffer, "if (Stack[StackPtr] != 0) goto _%08X; //", getBinaryVA(op_ptr + offset));
+		sprintf(buffer, "// DW_OP_bra 0x%08X (0x%08X, 0x%08X)\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
+#else
+		sprintf(buffer, "DW_OP_bra(0x%08X); // (0x%08X, 0x%08X);\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
+		// Reset stack as we reach a new BB after that
+		stack_elt = 1;
+#endif			
+		Line += buffer;
 
 		//if (stack[stack_elt] != 0)
 		//	op_ptr += offset;
@@ -643,7 +817,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		return E;
 
 	case DW_OP_nop:
-		printf("DW_OP_nop();\n");
+		sprintf(buffer, "DW_OP_nop();\n");
+		Line += buffer;
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 		return E;
 		break;
@@ -651,6 +826,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 	int t = 2;
 }
+
+std::map<uint64_t, std::string> Disassembly;
 
 int main(int argc, char** argv) {
 	BinaryStart = (uint64_t)decrypted_file;
@@ -682,6 +859,7 @@ int main(int argc, char** argv) {
 		// Disassemble
 		Edges Edges;
 		disassemble((const unsigned char*)BinaryStart + CurPC - BinaryImageBase, Edges);
+		Disassembly[CurPC] = Line;
 		for (auto &E : Edges) {
 			if (E.NextVA == 0x04004E7) {
 				int t = 1;
@@ -698,5 +876,10 @@ int main(int argc, char** argv) {
 		}
 	}
 
+
+	//Print disassembly
+	for (auto &O : Disassembly) {
+		printf("%s", O.second.c_str());
+	}
 	return 0;
 }

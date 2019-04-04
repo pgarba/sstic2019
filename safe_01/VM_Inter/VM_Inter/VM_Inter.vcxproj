@@ -125,6 +125,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\VM\VM.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TaintAnalysis.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

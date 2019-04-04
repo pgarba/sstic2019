@@ -163,23 +163,101 @@ const uint8_t Table_00400648[] = {
 };
 
 /*
+const uint8_t Table_00400648[256*4] =
+{
+		0xDE, 0xDD, 0x9D, 0x48, 0xF1, 0x90, 0x79, 0x06, 0xA9, 0x74, 0xBF, 0x95, 0xE7, 0x1E, 0x94, 0x77,
+		0xE3, 0x80, 0x6D, 0x0E, 0x8B, 0xAF, 0xED, 0x2D, 0x42, 0xCD, 0x92, 0xFB, 0xC0, 0x67, 0xE8, 0xD0,
+		0xFB, 0xA3, 0xB3, 0xF2, 0x47, 0xCE, 0x39, 0x6C, 0xE0, 0x99, 0x4F, 0xE7, 0x21, 0xF2, 0x24, 0x5A,
+		0xEA, 0x8F, 0x37, 0xD6, 0xC4, 0xA8, 0x3C, 0xE2, 0xBC, 0xB1, 0xE3, 0x84, 0xBF, 0x10, 0x5E, 0xCE,
+		0xDA, 0x64, 0xB3, 0xA2, 0xF0, 0x50, 0xF2, 0x41, 0x40, 0x70, 0xE9, 0x0F, 0x66, 0x52, 0xC0, 0x1C,
+		0x4B, 0x7E, 0xF8, 0x16, 0xB7, 0x26, 0x5E, 0x51, 0xCB, 0x8D, 0xA4, 0xEE, 0xE4, 0x57, 0xB3, 0x62,
+		0x41, 0x20, 0xBD, 0x39, 0x7A, 0x38, 0xCD, 0x72, 0x8B, 0xAC, 0x7A, 0xF3, 0x9B, 0xB3, 0x63, 0x59,
+		0xDD, 0x5A, 0xF7, 0x30, 0xBC, 0xEC, 0x3F, 0x10, 0x7A, 0x2E, 0x39, 0x00, 0xDF, 0x7A, 0xDF, 0x35,
+		0x13, 0xBD, 0x9A, 0xE1, 0x5C, 0xB3, 0xF8, 0xDA, 0x14, 0x82, 0x79, 0xF8, 0x05, 0x23, 0x0C, 0xB3,
+		0xE9, 0x80, 0x79, 0x06, 0x40, 0xD9, 0x00, 0x69, 0x6F, 0x87, 0x5E, 0x03, 0x14, 0x70, 0x85, 0xA3,
+		0x62, 0xE1, 0xC8, 0x56, 0x56, 0x8F, 0x74, 0xE9, 0x09, 0xE4, 0xD4, 0x91, 0x09, 0x5A, 0xC7, 0xDC,
+		0x2F, 0xF5, 0x65, 0xAC, 0x07, 0xDD, 0x71, 0x85, 0xF6, 0xDC, 0x9E, 0x01, 0xEB, 0xF9, 0xCE, 0x51,
+		0x7D, 0xB1, 0xB1, 0x1E, 0x6F, 0x44, 0xBE, 0x0A, 0xFE, 0x7C, 0x27, 0x3B, 0xBC, 0x69, 0x38, 0x84,
+		0x98, 0xA2, 0x3E, 0xB2, 0x51, 0x6F, 0x29, 0x7C, 0x72, 0x99, 0x79, 0xCD, 0x64, 0x0A, 0x18, 0x62,
+		0xD5, 0x52, 0xC0, 0x0A, 0x05, 0x62, 0x07, 0xF0, 0x93, 0x31, 0x18, 0x13, 0x94, 0xCB, 0x08, 0xB9,
+		0x3C, 0xCD, 0xF4, 0x4B, 0x8A, 0xD4, 0xE5, 0xDE, 0x74, 0x9A, 0x4F, 0xF6, 0xD0, 0x15, 0x4A, 0xD6,
+		0x34, 0xD4, 0xCA, 0xB2, 0x3B, 0x01, 0xE9, 0x64, 0xD2, 0xC1, 0x6C, 0xF4, 0xDB, 0xE9, 0x78, 0x9D,
+		0x16, 0x92, 0x78, 0x11, 0xE6, 0x89, 0x56, 0x33, 0xDB, 0x7E, 0x4C, 0x07, 0x85, 0x61, 0xEB, 0xE6,
+		0x0B, 0x17, 0x20, 0xD0, 0x15, 0xAA, 0x04, 0xF3, 0x9E, 0xB6, 0xF2, 0xBC, 0xEA, 0xD2, 0xB3, 0x4E,
+		0x5C, 0x4D, 0x8D, 0xD7, 0xC4, 0xBF, 0xD2, 0x7E, 0xF3, 0xF0, 0xEB, 0x58, 0x3F, 0x1C, 0x59, 0x8B,
+		0x6B, 0x1F, 0x04, 0xD3, 0x88, 0xAE, 0x5C, 0x00, 0x5C, 0x6F, 0x69, 0xBA, 0xDE, 0x8E, 0x6C, 0xC1,
+		0x27, 0xBB, 0xBC, 0x9A, 0x77, 0x8D, 0xD7, 0x56, 0x20, 0x3E, 0x5B, 0x76, 0x2D, 0x21, 0x37, 0xCF,
+		0xCF, 0x2D, 0x2E, 0x19, 0x06, 0x28, 0xAF, 0x8C, 0x5B, 0x57, 0x9A, 0xBC, 0xCE, 0x21, 0x64, 0x77,
+		0xEB, 0xB9, 0x7F, 0x52, 0x40, 0x43, 0xF8, 0x69, 0xD7, 0x7B, 0xBC, 0xAD, 0x29, 0xC3, 0xF2, 0x73,
+		0x7F, 0x8A, 0x7F, 0x73, 0xE4, 0xD3, 0x01, 0xE3, 0xB2, 0xBE, 0x7E, 0x05, 0x58, 0xB8, 0x59, 0x58,
+		0x79, 0x19, 0xC4, 0x2C, 0x39, 0xA6, 0x69, 0xEC, 0x23, 0xD5, 0xB0, 0x53, 0x32, 0xF5, 0xA2, 0x39,
+		0x5D, 0xE3, 0x29, 0x8B, 0x81, 0xCE, 0xE2, 0x44, 0x6D, 0xA1, 0x10, 0xCC, 0x58, 0xFF, 0xD9, 0x44,
+		0x14, 0x2C, 0x10, 0x77, 0x7D, 0x81, 0x57, 0xFB, 0xC8, 0xC8, 0xF7, 0x3C, 0x8A, 0x86, 0x22, 0x12,
+		0xD1, 0xD5, 0x73, 0x41, 0x32, 0xEE, 0x29, 0x35, 0x8E, 0xF5, 0x9D, 0x7A, 0xAC, 0x25, 0x35, 0x51,
+		0xAC, 0x4B, 0x95, 0x81, 0xF5, 0xCC, 0x53, 0xCE, 0x28, 0x87, 0x16, 0x79, 0xF8, 0x60, 0xD6, 0xA2,
+		0xCE, 0xC9, 0x0C, 0xF3, 0x76, 0x9C, 0xB8, 0xF0, 0xA9, 0xB3, 0x9F, 0x08, 0xA8, 0xDB, 0x19, 0xC9,
+		0xC3, 0x4D, 0x9E, 0x1F, 0x0C, 0x4E, 0x59, 0xA2, 0x78, 0xE1, 0xFF, 0x34, 0xFB, 0x14, 0x44, 0xB0,
+		0x3A, 0xB3, 0x1F, 0xD3, 0x78, 0x02, 0x4D, 0x18, 0x9A, 0x6A, 0x81, 0x2C, 0xF2, 0xF2, 0x93, 0xB9,
+		0x1C, 0x60, 0xD8, 0xE4, 0xDE, 0xEE, 0xE2, 0x49, 0xE1, 0x0C, 0xD5, 0x9C, 0x77, 0x1E, 0x3E, 0xC0,
+		0x9E, 0x86, 0x01, 0xA9, 0x50, 0xDE, 0x79, 0x75, 0xAB, 0xC4, 0x6A, 0x72, 0x40, 0x48, 0xD0, 0x38,
+		0x70, 0x12, 0xBE, 0xEA, 0x2D, 0x81, 0x40, 0x8C, 0xB7, 0x76, 0x49, 0xE8, 0xAD, 0x04, 0x2B, 0x17,
+		0xC4, 0x06, 0x66, 0x75, 0x91, 0x84, 0x25, 0x66, 0xF8, 0xBE, 0xA0, 0xB5, 0xF3, 0x5C, 0xCC, 0x6B,
+		0x94, 0xAE, 0x35, 0xA5, 0xAA, 0x87, 0x7A, 0xC9, 0xF6, 0xA8, 0x03, 0x91, 0x5F, 0x9E, 0x3B, 0xCC,
+		0x1F, 0xBE, 0x20, 0xBB, 0x97, 0xEF, 0xCF, 0xFF, 0x16, 0x4F, 0x95, 0x90, 0xA6, 0xE1, 0x1A, 0x50,
+		0xCD, 0x89, 0xD5, 0x6E, 0x2B, 0xB0, 0x26, 0x68, 0x63, 0xF2, 0x5F, 0x56, 0x9B, 0x36, 0x8C, 0x8E,
+		0x7A, 0xBE, 0x90, 0x69, 0x40, 0xB8, 0x25, 0x35, 0xBB, 0xD7, 0x47, 0x18, 0xC7, 0x40, 0x5A, 0x35,
+		0x10, 0x9F, 0x57, 0xA3, 0xAE, 0xEC, 0xED, 0xE9, 0xB1, 0x7A, 0x33, 0xD0, 0xBA, 0xE5, 0x55, 0x63,
+		0x55, 0x53, 0x97, 0x88, 0xCF, 0xF3, 0xC0, 0x5E, 0x3D, 0x21, 0xD6, 0xA0, 0x87, 0x93, 0x38, 0x75,
+		0xF0, 0x16, 0x02, 0xE4, 0xE0, 0xCC, 0x80, 0xD9, 0x7C, 0xC6, 0x88, 0x6C, 0x9C, 0x41, 0x9D, 0x82,
+		0x1B, 0x45, 0xF6, 0x3B, 0xFA, 0x7B, 0xF0, 0x11, 0x4E, 0x15, 0xC1, 0xC4, 0xEB, 0x35, 0x07, 0xBD,
+		0x9D, 0xDF, 0xF8, 0x9C, 0x75, 0xBE, 0x57, 0xE4, 0x18, 0xBD, 0xA6, 0x63, 0xD3, 0x7F, 0xE7, 0xEF,
+		0x63, 0x1B, 0x42, 0x83, 0x2D, 0x07, 0x83, 0x7F, 0x61, 0x0F, 0x94, 0x44, 0xF7, 0xCD, 0xBD, 0xF8,
+		0xCA, 0x02, 0xC8, 0x61, 0xA8, 0xF9, 0x30, 0x0A, 0x37, 0x3B, 0xF0, 0x7F, 0xA9, 0xC5, 0x6C, 0xA2,
+		0x0D, 0x57, 0x0E, 0xE1, 0x16, 0x0C, 0xEA, 0x95, 0x02, 0x6B, 0x5E, 0xA0, 0x84, 0x53, 0x1D, 0xC8,
+		0x05, 0xDB, 0x85, 0x77, 0x5F, 0x4C, 0xC8, 0x92, 0x17, 0x46, 0x58, 0x05, 0x8D, 0xFE, 0xBC, 0x82,
+		0xDA, 0xA1, 0x9E, 0x55, 0xB0, 0xCD, 0xD5, 0x4F, 0xED, 0x1F, 0x87, 0x9D, 0x39, 0x55, 0x6F, 0xDD,
+		0x26, 0xEF, 0xD1, 0x4E, 0xC4, 0x13, 0x68, 0xFE, 0xD5, 0x71, 0xFA, 0x1C, 0xEA, 0x3A, 0x61, 0xD5,
+		0x8C, 0x9B, 0x1C, 0x0F, 0x5D, 0xC4, 0xCA, 0x2B, 0x41, 0x0F, 0xD0, 0x65, 0xD8, 0xE0, 0x9B, 0x68,
+		0x00, 0x11, 0xB0, 0x68, 0x80, 0xD2, 0x5B, 0x63, 0x4B, 0x5D, 0x4D, 0x95, 0x79, 0x7F, 0x88, 0x72,
+		0x75, 0x7A, 0x02, 0xCE, 0x66, 0x1C, 0xF0, 0xFC, 0xD3, 0x1B, 0x6A, 0x00, 0x8E, 0x1C, 0x9A, 0x19,
+		0x25, 0xEE, 0xD6, 0x87, 0x08, 0x9F, 0x8E, 0x93, 0x4D, 0x1D, 0xA1, 0xD8, 0x81, 0x4D, 0x9A, 0x2B,
+		0xE5, 0xD2, 0xF5, 0xB6, 0x5A, 0x32, 0x5C, 0xD1, 0xC1, 0xAF, 0xEA, 0x64, 0x1C, 0xB6, 0x33, 0xFD,
+		0x57, 0xBD, 0xC1, 0x43, 0x48, 0xF0, 0xB8, 0x37, 0xF2, 0x7C, 0xBA, 0x5C, 0xD0, 0x0C, 0x81, 0x72,
+		0x54, 0xF4, 0xFE, 0xAB, 0xBA, 0x84, 0x63, 0xA7, 0x40, 0x14, 0x86, 0xD8, 0x37, 0x58, 0xDE, 0x36,
+		0xF1, 0x03, 0x6A, 0x0F, 0xA1, 0x8F, 0xD4, 0x10, 0x2F, 0xEC, 0x83, 0x58, 0x9B, 0x0C, 0xC0, 0xA8,
+		0xA4, 0xFE, 0x8F, 0x61, 0x06, 0xA2, 0x5D, 0xA0, 0x7A, 0xE9, 0xB9, 0xFF, 0x81, 0x67, 0x37, 0x8A,
+		0x79, 0xB4, 0x56, 0x31, 0xCD, 0x5E, 0xAF, 0xE4, 0x6F, 0xE0, 0xD9, 0x87, 0x59, 0xD4, 0xD4, 0xB4,
+		0x25, 0x7D, 0x9A, 0xEB, 0xAA, 0xFE, 0xDF, 0x59, 0x53, 0xF5, 0x8B, 0xDC, 0x3A, 0x3C, 0xCE, 0x6D,
+		0x0E, 0x97, 0x62, 0x21, 0x9D, 0x92, 0xC9, 0xE8, 0xF4, 0x9B, 0x3A, 0x6C, 0x92, 0x53, 0xDA, 0x45,
+};
+*/
+
+#ifdef _WIN32
+#define INLINE __forceinline
+#else
+#define INLINE __attribute__((always_inline)) 
+#endif
+
+
+/*
 Unroll the code
 */
 //#define Unroll
-
+#ifdef Unroll
 uint64_t Stack[44];
 
 // The Stack Ptr
 uint64_t StackPtr = 2;
+#endif
 
-__forceinline uint64_t DW_OP_reg(int Reg) {
+INLINE uint64_t DW_OP_reg(int Reg) {
 #ifdef Unroll
   printf("S%d = REG31;\n", StackPtr);
 #endif
   return 0;
 }
 
-__forceinline uint64_t DW_OP_lit(uint64_t lit) {
+INLINE uint64_t DW_OP_lit(uint64_t lit) {
 #ifdef Unroll
   printf("S%d = %d;\n", StackPtr, lit);
 #endif
@@ -187,7 +265,7 @@ __forceinline uint64_t DW_OP_lit(uint64_t lit) {
   return lit;
 }
 
-__forceinline uint64_t DW_OP_const1u(uint8_t Const) {
+INLINE uint64_t DW_OP_const1u(uint8_t Const) {
 #ifdef Unroll
   printf("S%d = 0x%X;\n", StackPtr, Const);
 #endif
@@ -195,7 +273,7 @@ __forceinline uint64_t DW_OP_const1u(uint8_t Const) {
   return Const;
 }
 
-__forceinline uint64_t DW_OP_const4u(uint32_t Const, bool Print = true) {
+INLINE uint64_t DW_OP_const4u(uint32_t Const, bool Print = true) {
 #ifdef Unroll
 	if (Print) {
 		printf("S%d = 0x%X;\n", StackPtr, Const);
@@ -204,7 +282,7 @@ __forceinline uint64_t DW_OP_const4u(uint32_t Const, bool Print = true) {
   return Const;
 }
 
-__forceinline uint64_t DW_OP_const8u(uint64_t Const) {
+INLINE uint64_t DW_OP_const8u(uint64_t Const) {
 #ifdef Unroll
   printf("S%d = 0x%llX;\n", StackPtr, Const);
 #endif
@@ -212,7 +290,7 @@ __forceinline uint64_t DW_OP_const8u(uint64_t Const) {
   return Const;
 }
 
-__forceinline uint64_t DW_OP_plus(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_plus(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  + S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
@@ -220,7 +298,7 @@ __forceinline uint64_t DW_OP_plus(uint64_t A, uint64_t B) {
   return A + B;
 }
 
-__forceinline uint64_t DW_OP_minus(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_minus(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  - S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
@@ -228,7 +306,7 @@ __forceinline uint64_t DW_OP_minus(uint64_t A, uint64_t B) {
   return A - B;
 }
 
-__forceinline uint64_t DW_OP_and(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_and(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  & S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
@@ -236,14 +314,14 @@ __forceinline uint64_t DW_OP_and(uint64_t A, uint64_t B) {
   return A & B;
 }
 
-__forceinline uint64_t DW_OP_or(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_or(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d | S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
   return A | B;
 }
 
-__forceinline uint64_t DW_OP_shr(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_shr(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  >> S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
@@ -251,21 +329,21 @@ __forceinline uint64_t DW_OP_shr(uint64_t A, uint64_t B) {
   return A >> B;
 }
 
-__forceinline uint64_t DW_OP_shl(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_shl(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  << S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
   return A << B;
 }
 
-__forceinline uint64_t DW_OP_xor(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_xor(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  ^ S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
   return A ^ B;
 }
 
-__forceinline uint64_t DW_OP_mul(uint64_t A, uint64_t B) {
+INLINE uint64_t DW_OP_mul(uint64_t A, uint64_t B) {
 #ifdef Unroll
   printf("S%d = S%d  * S%d;\n", StackPtr, StackPtr, StackPtr + 1);
 #endif
@@ -273,7 +351,7 @@ __forceinline uint64_t DW_OP_mul(uint64_t A, uint64_t B) {
   return A * B;
 }
 
-__forceinline uint64_t DW_OP_deref(uint64_t VA) {
+INLINE uint64_t DW_OP_deref(uint64_t VA) {
   int index = (VA - 0x400648); // / 4;
 
 #ifdef Unroll
@@ -284,7 +362,7 @@ __forceinline uint64_t DW_OP_deref(uint64_t VA) {
   return *(uint64_t *)(&Table_00400648[index]);
 }
 
-__forceinline uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
+INLINE uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
   int index = (Ptr - 0x400648) / 4;
 
 #ifdef Unroll
@@ -295,7 +373,7 @@ __forceinline uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
   return ((uint32_t *)Table_00400648)[index];
 }
 
-__forceinline void DW_OP_swap(uint64_t &A, uint64_t &B) {
+INLINE void DW_OP_swap(uint64_t &A, uint64_t &B) {
   uint64_t t = A;
   A = B;
   B = t;
@@ -306,7 +384,7 @@ __forceinline void DW_OP_swap(uint64_t &A, uint64_t &B) {
 #endif
 }
 
-__forceinline void DW_OP_rot(uint64_t &A, uint64_t &B, uint64_t &C) {
+INLINE void DW_OP_rot(uint64_t &A, uint64_t &B, uint64_t &C) {
   uint64_t t1, t2, t3;
 
   t1 = A;
@@ -327,14 +405,16 @@ __forceinline void DW_OP_rot(uint64_t &A, uint64_t &B, uint64_t &C) {
   C = t1;
 }
 
-uint64_t DW_OP_dup(int Ptr) {
+/*
+INLINE uint64_t Stack[StackPtr -1]; //uint64_t Stack[44], int Ptr) {
 #ifdef Unroll
   printf("S%d = S%d;\n", Ptr + 1, Ptr);
 #endif
   return Stack[Ptr];
 }
+*/
 
-uint64_t DW_OP_pick(uint64_t Offset) {
+INLINE uint64_t DW_OP_pick(uint64_t Stack[44], uint64_t StackPtr, uint64_t Offset) {
 #ifdef Unroll
   printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - Offset);
 #endif
@@ -342,6 +422,11 @@ uint64_t DW_OP_pick(uint64_t Offset) {
 }
 
 int VM_Func(const char *Flag) {
+	uint64_t Stack[44];
+
+	// The Stack Ptr
+	uint8_t StackPtr = 2;
+
   // Part 1
   Stack[StackPtr] = *(const uint64_t *)Flag;
 #ifdef Unroll
@@ -408,10 +493,10 @@ _0040027B:
   if (Stack[StackPtr] != 0)
     goto _004002C2; //// DW_OP_bra 0x00000044 (0x0040027E, 0x004002C2)
 _0040027E:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S1)
 _00400280:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S2)
 _00400282:
   goto _004002CE; // DW_OP_skip 0x00000049 (0x004002CE)
@@ -429,10 +514,10 @@ _004002D0:
   Stack[StackPtr] = DW_OP_lit(00);
   StackPtr++;
 _004002D1:
-  Stack[StackPtr] = DW_OP_pick(5);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  5];
   StackPtr++; // DW_OP_pick(S3)
 _004002D3:
-  Stack[StackPtr] = DW_OP_pick(5);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  5];
   StackPtr++; // DW_OP_pick(S4)
 _004002D5:
   goto _0040030B; // DW_OP_skip 0x00000033 (0x0040030B)
@@ -442,7 +527,7 @@ _0040030B:
 _0040030C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _0040030D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040030E:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -472,7 +557,7 @@ _00400326:
 _00400327:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400328:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400329:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -498,12 +583,12 @@ _00400340:
   Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400341:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400342:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400343:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S10)
 _00400345:
   StackPtr -= 2;
@@ -523,7 +608,7 @@ _0040034C:
 _0040034D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040034E:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S10)
 _00400350:
   StackPtr -= 2;
@@ -532,10 +617,10 @@ _00400350:
 _00400351:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400352:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400353:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S10)
 _00400355:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -553,7 +638,7 @@ _0040035C:
 _0040035D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040035E:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S11)
 _00400360:
   Stack[StackPtr] = DW_OP_const1u(0xFF);
@@ -592,10 +677,10 @@ _00400378:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400379:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040037A:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S11)
 _0040037C:
   Stack[StackPtr] = DW_OP_const1u(0x08);
@@ -666,7 +751,7 @@ _00400398:
   Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400399:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040039A:
   StackPtr--;
@@ -675,7 +760,7 @@ _0040039A:
 _0040039D:
   StackPtr--; // DW_OP_drop(&StackPtr);
 _0040039E:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S8)
 _004003A0:
   StackPtr--;
@@ -684,20 +769,20 @@ _004003A0:
 _004003A3:
   goto _004002D8; // DW_OP_skip 0xFFFFFF32 (0x004002D8)
 _004002D8:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S6)
 _004002DA:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S7)
 _004002DC:
   goto _004003A9; // DW_OP_skip 0x000000CA (0x004003A9)
 _004003A6:
   goto _004002ED; // DW_OP_skip 0xFFFFFF44 (0x004002ED)
 _004002ED:
-  Stack[StackPtr] = DW_OP_pick(7);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  7];
   StackPtr++; // DW_OP_pick(S3)
 _004002EF:
-  Stack[StackPtr] = DW_OP_pick(7);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  7];
   StackPtr++; // DW_OP_pick(S4)
 _004002F1:
   goto _004003A9; // DW_OP_skip 0x000000B5 (0x004003A9)
@@ -709,13 +794,13 @@ _004003AA:
 _004003AB:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003AC:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S11)
 _004003AE:
-  Stack[StackPtr] = DW_OP_pick(5);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  5];
   StackPtr++; // DW_OP_pick(S9)
 _004003B0:
-  Stack[StackPtr] = DW_OP_pick(5);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  5];
   StackPtr++; // DW_OP_pick(S10)
 _004003B2:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -729,7 +814,7 @@ _004003B5:
 _004003B6:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003B7:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S15)
 _004003B9:
   goto _0040055C; // DW_OP_skip 0x000001A0 (0x0040055C)
@@ -738,7 +823,7 @@ _0040055C:
 _0040055D:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040055E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040055F:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -768,7 +853,7 @@ _00400577:
 _00400578:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400579:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040057A:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -794,7 +879,7 @@ _00400591:
   Stack[StackPtr] = DW_OP_shr(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400592:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S16)
 _00400594:
   Stack[StackPtr] = DW_OP_lit(04);
@@ -815,7 +900,7 @@ _004005A0:
   Stack[StackPtr] = DW_OP_deref_size(4, Stack[StackPtr]);
   StackPtr++;
 _004005A2:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S17)
 _004005A4:
   StackPtr -= 2;
@@ -825,7 +910,7 @@ _004005A4:
 #endif
   StackPtr++;
 _004005A5:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S18)
 _004005A7:
   Stack[StackPtr] = DW_OP_const4u(0x45786532);
@@ -842,20 +927,20 @@ _004005B2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005B3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004005B4:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S19)
 _004005B6:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005B7:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S20)
 _004005B9:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004005BA:
   Stack[StackPtr] = DW_OP_const1u(0x04);
@@ -889,10 +974,10 @@ _004005C8:
 _004005C9:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004005CA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004005CB:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S21)
 _004005CD:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
@@ -908,7 +993,7 @@ _004005D4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005D5:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S22)
 _004005D7:
   Stack[StackPtr] = DW_OP_const4u(0x80000000);
@@ -968,7 +1053,7 @@ _00400ACC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400ACD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400ACE:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -989,7 +1074,7 @@ _00400AD7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AD8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400AD9:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1019,10 +1104,10 @@ _00400AE6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AE7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400AE8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400AE9:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -1056,7 +1141,7 @@ _00400AF7:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400AF8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400AF9:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1077,7 +1162,7 @@ _00400B02:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B03:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B04:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -1098,10 +1183,10 @@ _00400B0D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B0E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B0F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B10:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -1142,10 +1227,10 @@ _00400B24:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B25:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B26:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B27:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1179,7 +1264,7 @@ _00400B35:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B36:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B37:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1193,10 +1278,10 @@ _00400B3A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B3B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B3C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B3D:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -1237,10 +1322,10 @@ _00400B51:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B52:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B53:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B54:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1281,7 +1366,7 @@ _00400B68:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B69:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B6A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1295,10 +1380,10 @@ _00400B6D:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B6E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B6F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B70:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -1339,7 +1424,7 @@ _00400B84:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B85:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B86:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1360,10 +1445,10 @@ _00400B8F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400B90:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B91:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400B92:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1397,7 +1482,7 @@ _00400BA0:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BA1:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BA2:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1411,7 +1496,7 @@ _00400BA5:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BA6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BA7:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1441,7 +1526,7 @@ _00400BB4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BB5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BB6:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1471,7 +1556,7 @@ _00400BC3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BC4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BC5:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1492,7 +1577,7 @@ _00400BCE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BCF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BD0:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1522,7 +1607,7 @@ _00400BDD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BDE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BDF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1552,7 +1637,7 @@ _00400BEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BED:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BEE:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1566,10 +1651,10 @@ _00400BF1:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400BF2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BF3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400BF4:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -1603,10 +1688,10 @@ _00400C02:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C03:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C04:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C05:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1647,10 +1732,10 @@ _00400C19:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C1A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C1B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C1C:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1705,7 +1790,7 @@ _00400C3C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C3D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C3E:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -1726,7 +1811,7 @@ _00400C47:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C48:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C49:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -1756,10 +1841,10 @@ _00400C56:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C57:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C58:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C59:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1800,10 +1885,10 @@ _00400C6D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C6E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C6F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C70:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -1865,10 +1950,10 @@ _00400C96:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400C97:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C98:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400C99:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -1916,7 +2001,7 @@ _00400CB3:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CB4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CB5:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1960,7 +2045,7 @@ _00400CCE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CCF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CD0:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -1990,7 +2075,7 @@ _00400CDD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CDE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CDF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2020,7 +2105,7 @@ _00400CEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CED:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CEE:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -2041,10 +2126,10 @@ _00400CF7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400CF8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CF9:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400CFA:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2099,7 +2184,7 @@ _00400D1A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D1B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D1C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -2120,7 +2205,7 @@ _00400D25:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D26:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D27:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -2141,7 +2226,7 @@ _00400D30:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D31:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D32:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -2162,7 +2247,7 @@ _00400D3B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D3C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D3D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2190,7 +2275,7 @@ _00400D4C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D4D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D4E:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -2225,10 +2310,10 @@ _00400D63:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D64:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D65:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D66:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -2269,7 +2354,7 @@ _00400D7A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D7B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D7C:
   Stack[StackPtr] = DW_OP_lit(06);
@@ -2284,10 +2369,10 @@ _00400D83:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D84:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D85:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D86:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -2321,10 +2406,10 @@ _00400D94:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400D95:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D96:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400D97:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -2365,10 +2450,10 @@ _00400DAB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DAC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DAD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DAE:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2409,7 +2494,7 @@ _00400DC2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DC3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DC4:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -2430,7 +2515,7 @@ _00400DCD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DCE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DCF:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2444,7 +2529,7 @@ _00400DD2:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DD3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DD4:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2474,7 +2559,7 @@ _00400DE1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DE2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DE3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2518,10 +2603,10 @@ _00400DFC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400DFD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DFE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400DFF:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -2576,10 +2661,10 @@ _00400E1F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E20:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E21:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E22:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2648,7 +2733,7 @@ _00400E4E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E4F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E50:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2676,7 +2761,7 @@ _00400E5F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E60:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E61:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2706,7 +2791,7 @@ _00400E6E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E6F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E70:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2720,7 +2805,7 @@ _00400E73:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E74:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E75:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -2741,7 +2826,7 @@ _00400E7E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E7F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E80:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -2764,7 +2849,7 @@ _00400E86:
   Stack[StackPtr] = DW_OP_minus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E87:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E88:
   StackPtr--;
@@ -2777,7 +2862,7 @@ _00400E8C:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400E8D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400E8E:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -2826,7 +2911,7 @@ _00400EAF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EB0:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400EB1:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -2847,10 +2932,10 @@ _00400EBA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EBB:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400EBC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400EBD:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2891,7 +2976,7 @@ _00400ED1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400ED2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400ED3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -2935,10 +3020,10 @@ _00400EEC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400EED:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400EEE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400EEF:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -2979,7 +3064,7 @@ _00400F03:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F04:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F05:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -3000,10 +3085,10 @@ _00400F0E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F0F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F10:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F11:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3044,10 +3129,10 @@ _00400F25:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F26:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F27:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F28:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3088,7 +3173,7 @@ _00400F3C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F3D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F3E:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3118,10 +3203,10 @@ _00400F4B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F4C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F4D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F4E:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -3162,7 +3247,7 @@ _00400F62:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F63:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F64:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -3192,10 +3277,10 @@ _00400F71:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F72:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F73:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F74:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3236,7 +3321,7 @@ _00400F88:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F89:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F8A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -3257,7 +3342,7 @@ _00400F93:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F94:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F95:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -3271,7 +3356,7 @@ _00400F98:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400F99:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400F9A:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3308,10 +3393,10 @@ _00400FAD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FAE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FAF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FB0:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -3345,7 +3430,7 @@ _00400FBE:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FBF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FC0:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -3366,7 +3451,7 @@ _00400FC9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FCA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FCB:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -3387,10 +3472,10 @@ _00400FD4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FD5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FD6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FD7:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3431,7 +3516,7 @@ _00400FEB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400FEC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400FED:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3475,10 +3560,10 @@ _00401006:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401007:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401008:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401009:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3533,7 +3618,7 @@ _00401029:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040102A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040102B:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -3547,10 +3632,10 @@ _0040102E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040102F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401030:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401031:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -3591,10 +3676,10 @@ _00401045:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401046:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401047:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401048:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3628,10 +3713,10 @@ _00401056:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401057:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401058:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401059:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3665,7 +3750,7 @@ _00401067:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401068:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401069:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3695,10 +3780,10 @@ _00401076:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401077:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401078:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401079:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -3739,7 +3824,7 @@ _0040108D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040108E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040108F:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -3753,7 +3838,7 @@ _00401092:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401093:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401094:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3788,7 +3873,7 @@ _004010A9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010AA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010AB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3809,10 +3894,10 @@ _004010B4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010B5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010B6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010B7:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3853,7 +3938,7 @@ _004010CB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010CC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010CD:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -3874,7 +3959,7 @@ _004010D6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010D7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010D8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -3895,7 +3980,7 @@ _004010E1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010E2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010E3:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -3916,10 +4001,10 @@ _004010EC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010ED:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010EE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010EF:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -3953,7 +4038,7 @@ _004010FD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004010FE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004010FF:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -3974,7 +4059,7 @@ _00401108:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401109:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040110A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4002,10 +4087,10 @@ _00401119:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040111A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040111B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040111C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4039,10 +4124,10 @@ _0040112A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040112B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040112C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040112D:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4097,7 +4182,7 @@ _0040114D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040114E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040114F:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4127,10 +4212,10 @@ _0040115C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040115D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040115E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040115F:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4171,7 +4256,7 @@ _00401173:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401174:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401175:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4201,10 +4286,10 @@ _00401182:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401183:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401184:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401185:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4245,7 +4330,7 @@ _00401199:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040119A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040119B:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4259,7 +4344,7 @@ _0040119E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040119F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011A0:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4289,7 +4374,7 @@ _004011AD:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011AE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011AF:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -4310,10 +4395,10 @@ _004011B8:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011B9:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011BA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011BB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4354,10 +4439,10 @@ _004011CF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011D0:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011D1:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011D2:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4391,10 +4476,10 @@ _004011E0:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011E1:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011E2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011E3:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4435,7 +4520,7 @@ _004011F7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004011F8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004011F9:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4456,7 +4541,7 @@ _00401202:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401203:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401204:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4470,7 +4555,7 @@ _00401207:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401208:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401209:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4484,7 +4569,7 @@ _0040120C:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040120D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040120E:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4498,10 +4583,10 @@ _00401211:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401212:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401213:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401214:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4542,7 +4627,7 @@ _00401228:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401229:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040122A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4572,7 +4657,7 @@ _00401237:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401238:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401239:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -4586,7 +4671,7 @@ _0040123C:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040123D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040123E:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4616,7 +4701,7 @@ _0040124B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040124C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040124D:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4637,10 +4722,10 @@ _00401256:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401257:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401258:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401259:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4688,10 +4773,10 @@ _00401273:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401274:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401275:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401276:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4732,7 +4817,7 @@ _0040128A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040128B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040128C:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4753,7 +4838,7 @@ _00401295:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401296:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401297:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -4774,10 +4859,10 @@ _004012A0:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012A1:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012A2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012A3:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -4811,7 +4896,7 @@ _004012B1:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012B2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012B3:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -4832,7 +4917,7 @@ _004012BC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012BD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012BE:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -4853,7 +4938,7 @@ _004012C7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012C8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012C9:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4883,7 +4968,7 @@ _004012D6:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012D7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012D8:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4913,10 +4998,10 @@ _004012E5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012E6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012E7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012E8:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -4957,10 +5042,10 @@ _004012FC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004012FD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012FE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004012FF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5001,10 +5086,10 @@ _00401313:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401314:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401315:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401316:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -5038,10 +5123,10 @@ _00401324:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401325:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401326:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401327:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5082,7 +5167,7 @@ _0040133B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040133C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040133D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5096,7 +5181,7 @@ _00401340:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401341:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401342:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -5117,7 +5202,7 @@ _0040134B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040134C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040134D:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5131,7 +5216,7 @@ _00401350:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401351:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401352:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5145,7 +5230,7 @@ _00401355:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401356:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401357:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -5166,10 +5251,10 @@ _00401360:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401361:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401362:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401363:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -5210,7 +5295,7 @@ _00401377:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401378:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401379:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5240,7 +5325,7 @@ _00401386:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401387:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401388:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5254,7 +5339,7 @@ _0040138B:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040138C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040138D:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -5275,10 +5360,10 @@ _00401396:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401397:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401398:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401399:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -5319,7 +5404,7 @@ _004013AD:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013AE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013AF:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5333,7 +5418,7 @@ _004013B2:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013B3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013B4:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5361,10 +5446,10 @@ _004013C3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013C4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013C5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013C6:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -5405,7 +5490,7 @@ _004013DA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013DB:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013DC:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5435,7 +5520,7 @@ _004013E9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013EA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013EB:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -5456,7 +5541,7 @@ _004013F4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004013F5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004013F6:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -5477,7 +5562,7 @@ _004013FF:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401400:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401401:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -5512,10 +5597,10 @@ _00401416:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401417:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401418:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401419:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -5556,7 +5641,7 @@ _0040142D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040142E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040142F:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5586,10 +5671,10 @@ _0040143C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040143D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040143E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040143F:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -5630,10 +5715,10 @@ _00401453:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401454:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401455:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401456:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -5681,7 +5766,7 @@ _00401470:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401471:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401472:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -5702,7 +5787,7 @@ _0040147B:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040147C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040147D:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5732,10 +5817,10 @@ _0040148A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040148B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040148C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040148D:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -5776,7 +5861,7 @@ _004014A1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014A2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014A3:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -5797,7 +5882,7 @@ _004014AC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014AD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014AE:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5818,7 +5903,7 @@ _004014B7:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014B8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014B9:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5832,10 +5917,10 @@ _004014BC:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014BD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014BE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014BF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5876,7 +5961,7 @@ _004014D3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014D4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014D5:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -5906,10 +5991,10 @@ _004014E2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014E3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014E4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014E5:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -5950,10 +6035,10 @@ _004014F9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004014FA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014FB:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004014FC:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -6001,10 +6086,10 @@ _00401516:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401517:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401518:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401519:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6052,7 +6137,7 @@ _00401533:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401534:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401535:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -6073,7 +6158,7 @@ _0040153E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040153F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401540:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -6087,10 +6172,10 @@ _00401543:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401544:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401545:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401546:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -6131,7 +6216,7 @@ _0040155A:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040155B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040155C:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -6161,10 +6246,10 @@ _00401569:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040156A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040156B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040156C:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -6198,7 +6283,7 @@ _0040157A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040157B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040157C:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6219,7 +6304,7 @@ _00401585:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401586:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401587:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -6233,10 +6318,10 @@ _0040158A:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040158B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040158C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040158D:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6277,10 +6362,10 @@ _004015A1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015A2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015A3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015A4:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -6335,10 +6420,10 @@ _004015C4:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015C5:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015C6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015C7:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -6379,10 +6464,10 @@ _004015DB:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015DC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015DD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004015DE:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -6437,10 +6522,10 @@ _004015FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004015FF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401600:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401601:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6481,7 +6566,7 @@ _00401615:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401616:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401617:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -6511,7 +6596,7 @@ _00401624:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401625:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401626:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -6532,7 +6617,7 @@ _0040162F:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401630:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401631:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -6567,7 +6652,7 @@ _00401646:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401647:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401648:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -6588,7 +6673,7 @@ _00401651:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401652:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401653:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -6609,10 +6694,10 @@ _0040165C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040165D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040165E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040165F:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6646,7 +6731,7 @@ _0040166D:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040166E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040166F:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -6667,7 +6752,7 @@ _00401678:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401679:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040167A:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -6688,10 +6773,10 @@ _00401683:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401684:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401685:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401686:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6725,7 +6810,7 @@ _00401694:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401695:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401696:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -6753,7 +6838,7 @@ _004016A5:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016A6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016A7:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -6767,7 +6852,7 @@ _004016AA:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016AB:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016AC:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6788,10 +6873,10 @@ _004016B5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016B6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016B7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016B8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6825,7 +6910,7 @@ _004016C6:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016C7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016C8:
   Stack[StackPtr] = DW_OP_const1u(0x0A);
@@ -6846,7 +6931,7 @@ _004016D1:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016D2:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016D3:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6867,7 +6952,7 @@ _004016DC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016DD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016DE:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -6902,7 +6987,7 @@ _004016F3:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016F4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004016F5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -6923,7 +7008,7 @@ _004016FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004016FF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401700:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -6944,10 +7029,10 @@ _00401709:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040170A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040170B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040170C:
   Stack[StackPtr] = DW_OP_const1u(0x05);
@@ -6988,10 +7073,10 @@ _00401720:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401721:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401722:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401723:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -7025,10 +7110,10 @@ _00401731:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401732:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401733:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401734:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7069,7 +7154,7 @@ _00401748:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401749:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040174A:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7111,10 +7196,10 @@ _00401765:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401766:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401767:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401768:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7155,7 +7240,7 @@ _0040177C:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040177D:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040177E:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -7176,10 +7261,10 @@ _00401787:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401788:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401789:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040178A:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7220,10 +7305,10 @@ _0040179E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040179F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017A0:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017A1:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -7257,7 +7342,7 @@ _004017AF:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017B0:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017B1:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -7278,10 +7363,10 @@ _004017BA:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017BB:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017BC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017BD:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -7315,10 +7400,10 @@ _004017CB:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017CC:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017CD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017CE:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7359,10 +7444,10 @@ _004017E2:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017E3:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017E4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017E5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -7396,7 +7481,7 @@ _004017F3:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017F4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004017F5:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -7417,10 +7502,10 @@ _004017FE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004017FF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401800:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401801:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -7454,7 +7539,7 @@ _0040180F:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401810:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401811:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7468,7 +7553,7 @@ _00401814:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401815:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401816:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7510,7 +7595,7 @@ _00401831:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401832:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401833:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7524,10 +7609,10 @@ _00401836:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401837:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401838:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401839:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7568,7 +7653,7 @@ _0040184D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040184E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040184F:
   Stack[StackPtr] = DW_OP_const1u(0x09);
@@ -7596,7 +7681,7 @@ _0040185E:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040185F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401860:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7626,10 +7711,10 @@ _0040186D:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040186E:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040186F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401870:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -7684,10 +7769,10 @@ _00401890:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401891:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401892:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401893:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7728,10 +7813,10 @@ _004018A7:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018A8:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018A9:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018AA:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7772,7 +7857,7 @@ _004018BE:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018BF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018C0:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -7793,7 +7878,7 @@ _004018C9:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018CA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018CB:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7807,10 +7892,10 @@ _004018CE:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018CF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018D0:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018D1:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7851,10 +7936,10 @@ _004018E5:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018E6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018E7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018E8:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -7895,10 +7980,10 @@ _004018FC:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004018FD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018FE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004018FF:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -7939,7 +8024,7 @@ _00401913:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401914:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401915:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -7960,7 +8045,7 @@ _0040191E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040191F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401920:
   Stack[StackPtr] = DW_OP_const1u(0x03);
@@ -7981,7 +8066,7 @@ _00401929:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040192A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040192B:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -8023,10 +8108,10 @@ _00401946:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401947:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401948:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401949:
   Stack[StackPtr] = DW_OP_const1u(0x06);
@@ -8074,7 +8159,7 @@ _00401963:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00401964:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401965:
   Stack[StackPtr] = DW_OP_const1u(0x07);
@@ -8095,10 +8180,10 @@ _0040196E:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040196F:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401970:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00401971:
   Stack[StackPtr] = DW_OP_const1u(0x02);
@@ -8134,24 +8219,24 @@ _0040197F:
 _00401980:
   goto _004005F0; // DW_OP_skip 0xFFFFEC6D (0x004005F0)
 _004005F0:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S24)
 _004005F2:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005F3:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S23)
 _004005F5:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004005F6:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S22)
 _004005F8:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S23)
 _004005FA:
   Stack[StackPtr] = DW_OP_const1u(0x20);
@@ -8240,10 +8325,10 @@ _004003BC:
 _004003BD:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004003BE:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004003BF:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S14)
 _004003C1:
   StackPtr -= 2;
@@ -8275,7 +8360,7 @@ _004003D0:
 _004003D1:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004003D2:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S12)
 _004003D4:
   Stack[StackPtr] = DW_OP_lit(00);
@@ -8283,7 +8368,7 @@ _004003D4:
 _004003D5:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004003D6:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004003D7:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -8311,7 +8396,7 @@ _004003EE:
 _004003EF:
   goto _004004E7; // DW_OP_skip 0x000000F5 (0x004004E7)
 _004004E7:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004004E8:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -8319,7 +8404,7 @@ _004004E9:
   Stack[StackPtr] = DW_OP_lit(00);
   StackPtr++;
 _004004EA:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004004EB:
   Stack[StackPtr] = DW_OP_lit(02);
@@ -8370,7 +8455,7 @@ _00400506:
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400507:
-  Stack[StackPtr] = DW_OP_pick(1);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  1];
   StackPtr++; // DW_OP_pick(S18)
 _00400509:
   Stack[StackPtr] = DW_OP_lit(02);
@@ -8407,7 +8492,7 @@ _00400519:
 _0040051A:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040051B:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040051C:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -8416,7 +8501,7 @@ _0040051D:
   Stack[StackPtr] = DW_OP_or(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _0040051E:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S17)
 _00400520:
   StackPtr -= 2;
@@ -8443,7 +8528,7 @@ _00400526:
 _00400527:
   StackPtr--; // DW_OP_drop(&StackPtr);
 _00400528:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400529:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -8471,7 +8556,7 @@ _00400540:
 _00400541:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _00400542:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S17)
 _00400544:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -8485,7 +8570,7 @@ _00400547:
   Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400548:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400549:
   Stack[StackPtr] = DW_OP_lit(06);
@@ -8515,10 +8600,10 @@ _00400553:
 _00400556:
   goto _004003F2; // DW_OP_skip 0xFFFFFE99 (0x004003F2)
 _004003F2:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S13)
 _004003F4:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004003F5:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -8546,7 +8631,7 @@ _0040040C:
 _0040040D:
   goto _00400480; // DW_OP_skip 0x00000070 (0x00400480)
 _00400480:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S17)
 _00400482:
   StackPtr -= 2;
@@ -8555,14 +8640,14 @@ _00400482:
 _00400483:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400484:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S16)
 _00400486:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400487:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400488:
   Stack[StackPtr] = DW_OP_const1u(0x04);
@@ -8592,7 +8677,7 @@ _00400495:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _00400496:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S17)
 _00400498:
   StackPtr -= 2;
@@ -8601,7 +8686,7 @@ _00400498:
 _00400499:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040049A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040049B:
   Stack[StackPtr] = DW_OP_const1u(0x12);
@@ -8631,7 +8716,7 @@ _004004A8:
   Stack[StackPtr] = DW_OP_and(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004A9:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S16)
 _004004AB:
   StackPtr -= 2;
@@ -8673,7 +8758,7 @@ _00400416:
 _00400417:
   StackPtr--; // DW_OP_drop(&StackPtr);
 _00400418:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _00400419:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
@@ -8683,7 +8768,7 @@ _0040041A:
 _0040041B:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _0040041C:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040041D:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -8713,10 +8798,10 @@ _00400435:
 _00400559:
   goto _00400438; // DW_OP_skip 0xFFFFFEDC (0x00400438)
 _00400438:
-  Stack[StackPtr] = DW_OP_pick(4);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  4];
   StackPtr++; // DW_OP_pick(S13)
 _0040043A:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _0040043B:
   Stack[StackPtr] = DW_OP_const8u(0x00000000FFFFFFFF);
@@ -8746,14 +8831,14 @@ _00400453:
 _004004B5:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004004B6:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S17)
 _004004B8:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004B9:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004004BA:
   Stack[StackPtr] = DW_OP_const1u(0x1A);
@@ -8785,21 +8870,21 @@ _004004C7:
 _004004C8:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004004C9:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S16)
 _004004CB:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004CC:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S17)
 _004004CE:
   StackPtr -= 2;
   Stack[StackPtr] = DW_OP_xor(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004004CF:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004004D0:
   Stack[StackPtr] = DW_OP_const1u(0x0E);
@@ -8879,7 +8964,7 @@ _00400462:
 _00400463:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _00400464:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S12)
 _00400466:
   Stack[StackPtr] = DW_OP_lit(15);
@@ -8938,10 +9023,10 @@ _004002E5:
   Stack[StackPtr] = DW_OP_lit(01);
   StackPtr++;
 _004002E6:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S7)
 _004002E8:
-  Stack[StackPtr] = DW_OP_pick(2);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  2];
   StackPtr++; // DW_OP_pick(S8)
 _004002EA:
   goto _0040030B; // DW_OP_skip 0x0000001E (0x0040030B)
@@ -8952,12 +9037,12 @@ _004002F4:
 _004002F5:
   DW_OP_rot(Stack[StackPtr - 1], Stack[StackPtr - 2], Stack[StackPtr - 3]);
 _004002F6:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
   StackPtr++; // DW_OP_pick(S7)
 _004002F8:
   DW_OP_swap(Stack[StackPtr - 1], Stack[StackPtr - 2]);
 _004002F9:
-  Stack[StackPtr] = DW_OP_pick(5);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  5];
   StackPtr++; // DW_OP_pick(S6)
 _004002FB:
   Stack[StackPtr] = DW_OP_lit(01);
@@ -8967,7 +9052,7 @@ _004002FC:
   Stack[StackPtr] = DW_OP_plus(Stack[StackPtr], Stack[StackPtr + 1]);
   StackPtr++;
 _004002FD:
-  Stack[StackPtr] = DW_OP_dup(StackPtr - 1);
+  Stack[StackPtr] = Stack[StackPtr -1]; //Stack,StackPtr - 1);
   StackPtr++;
 _004002FE:
   Stack[StackPtr] = DW_OP_lit(04);
@@ -8983,13 +9068,13 @@ _00400300:
 _00400303:
   StackPtr--; // DW_OP_drop(&StackPtr);
 _00400304:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
 #ifdef Unroll
 	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _00400304 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
 #endif
   StackPtr++; // DW_OP_pick(S8)
 _00400306:
-  Stack[StackPtr] = DW_OP_pick(3);
+  Stack[StackPtr] = Stack[StackPtr - 1 -  3];
 #ifdef Unroll
 	//printf("printf(\"%%d %%llX\\n\", %d, S%d); // _00400306 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
 #endif
