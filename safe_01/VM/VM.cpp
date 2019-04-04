@@ -15,7 +15,7 @@ typedef unsigned int uint;
 typedef uint8_t undefined8;
 typedef unsigned short ushort;
 
-#define DEBUG 1
+//#define DEBUG 1
 
 // Global StackPtr
 int stack_elt;
@@ -221,7 +221,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
   stack_elt = 1;
 
   while (op_ptr < op_end) {
-    printf("%08X ", getBinaryVA(op_ptr));
+    //printf("%08X ", getBinaryVA(op_ptr));
     addAddr((uint64_t) op_ptr);
 
     enum dwarf_location_atom op = (dwarf_location_atom)*op_ptr++;
@@ -736,6 +736,7 @@ int main(int argc, char **argv) {
 
     //printf("Wrong Input!\n");
     exit(1);
+
   }
 
   char Flag[] = "SSTIC{1111111122222222333333334}";

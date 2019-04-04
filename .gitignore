@@ -31,6 +31,23 @@
 *.out
 *.app
 
+*.suo
+*.db
+*.ipch
+*.tlog
+*.idb
+*.log
+*.pdb
+*.exe
+*.til
+*.id*
+*.opendb
+*.nam
+*.txt
+*.ll
+*.enc
+*.ilk
+
 # Skip some folders
 build
 build_llvm
