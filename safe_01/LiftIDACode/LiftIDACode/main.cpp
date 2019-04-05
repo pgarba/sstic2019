@@ -84,16 +84,61 @@ const uint8_t Table_00400648[] =
 		0x12, 0x08, 0x09, 0x24, 0x22, 0x0C, 0xFF, 0xFF, 0xFF, 0xFF, 0x1A, 0x12, 0x08, 0x07, 0x24, 0x1C,
 };
 
+uint64_t DW_OP_deref(uint64_t VA) {
+	int index = (VA - 0x400648); // / 4;
+	return *(uint64_t*)(&Table_00400648[index]);
+}
+
+uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
+	int index = (Ptr - 0x400648) / 4;
+	return ((uint32_t*)Table_00400648)[index];
+}
+
+void DW_OP_rot(uint64_t& A, uint64_t& B, uint64_t& C) {
+	uint64_t t1, t2, t3;
+
+	t1 = A;
+	t2 = B;
+	t3 = C;
+
+	A = t2;
+	B = t3;
+	C = t1;
+}
+
+void DW_OP_swap(uint64_t& A, uint64_t& B) {
+	uint64_t t = A;
+	A = B;
+	B = t;
+}
 
 uint64_t __fastcall VM_Func(const char* Flag)
 {
-	uint64_t S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44;
+	uint64_t S0 = 0, S1 = 0, S2 = 0, S3 = 0, S4 = 0, S5 = 0, S6 = 0, S7 = 0, S8 = 0, S9 = 0, S10 = 0, S11 = 0, S12;
+	uint64_t S13 = 0, S14 = 0, S15 = 0, S16 = 0, S17 = 0, S18 = 0, S19 = 0, S20 = 0, S21 = 0, S22 = 0, S23 = 0;
+	uint64_t S24 = 0, S25 = 0, S26 = 0, S27 = 0, S28 = 0, S29 = 0, S30 = 0, S31 = 0, S32 = 0, S33 = 0, S34 = 0;
+  uint64_t S35 = 0, S36 = 0, S37 = 0, S38 = 0, S39 = 0, S40 = 0, S41 = 0, S42 = 0, S43 = 0, S44 = 0;
 	uint64_t STemp1, STemp2,STemp3;
 	uint64_t Result;
 
-	#include "code.h"
+	//#include "code.h"
+	uint64_t* F = (uint64_t*)Flag;
+			
+	S2 = F[0]; // S2 DW_OP_deref
+	DW_OP_swap(S2, S1);
+	S3 = F[1]; // S3 DW_OP_deref
+	DW_OP_swap(S3, S2);
+	S4 = F[2]; // S4 DW_OP_deref
+	DW_OP_swap(S4, S3);
+	S5 = F[3]; // S4 DW_OP_deref
+	DW_OP_swap(S5, S4);
+	S5 = Flag[32];
+	S5 = S1; // DW_OP_dup
+	S6 = S2; // DW_OP_dup
 	
-	return Result;
+#include "tainted.c"
+		
+	return S21;
 }
 
 int main(void) {
@@ -103,7 +148,7 @@ int main(void) {
 // Build up flag
 // 25 chars huma readable
 	//char FlagInner[] = "Z11111112222222233333333Z";
-	char FlagInner[] =   "1111111111111111111111111";
+	char FlagInner[] =   "Z11111112222222233333333Z";
 	//klee_make_symbolic(FlagInner, 26, "InnerFlag");
 	printf("%d\n", sizeof(FlagInner));
 	for (int i = 0; i < 25; i++) {
@@ -121,7 +166,7 @@ int main(void) {
 	}
 
 	char Flag[] = "SSTIC{1111111122222222333333334}"; // Only => 2DB6A6078FFCF147
-	memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
+	//memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
 
 	uint64_t * SimArgv[2];
 	SimArgv[0] = (uint64_t*)0x1111111111111111;
