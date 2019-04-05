@@ -84,17 +84,24 @@ const uint8_t Table_00400648[] =
 		0x12, 0x08, 0x09, 0x24, 0x22, 0x0C, 0xFF, 0xFF, 0xFF, 0xFF, 0x1A, 0x12, 0x08, 0x07, 0x24, 0x1C,
 };
 
-uint64_t DW_OP_deref(uint64_t VA) {
+#ifdef _WIN32
+#define INLINE __forceinline
+#else
+#define INLINE __attribute__((always_inline)) 
+#endif
+
+
+INLINE uint64_t DW_OP_deref(uint64_t VA) {
 	int index = (VA - 0x400648); // / 4;
 	return *(uint64_t*)(&Table_00400648[index]);
 }
 
-uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
+INLINE uint64_t DW_OP_deref_size(int Size, uint64_t Ptr) {
 	int index = (Ptr - 0x400648) / 4;
 	return ((uint32_t*)Table_00400648)[index];
 }
 
-void DW_OP_rot(uint64_t& A, uint64_t& B, uint64_t& C) {
+INLINE void DW_OP_rot(uint64_t& A, uint64_t& B, uint64_t& C) {
 	uint64_t t1, t2, t3;
 
 	t1 = A;
@@ -106,7 +113,7 @@ void DW_OP_rot(uint64_t& A, uint64_t& B, uint64_t& C) {
 	C = t1;
 }
 
-void DW_OP_swap(uint64_t& A, uint64_t& B) {
+INLINE void DW_OP_swap(uint64_t& A, uint64_t& B) {
 	uint64_t t = A;
 	A = B;
 	B = t;
@@ -166,7 +173,7 @@ int main(void) {
 	}
 
 	char Flag[] = "SSTIC{1111111122222222333333334}"; // Only => 2DB6A6078FFCF147
-	//memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
+	memcpy(Flag + 6, FlagInner, 25); // = D7783616EF60E415
 
 	uint64_t * SimArgv[2];
 	SimArgv[0] = (uint64_t*)0x1111111111111111;

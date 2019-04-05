@@ -36,6 +36,49 @@ public:
 	}
 };
 
+#define PrintOnlyNewInst
+bool PrintTaint = true;
+
+
+std::set<uint64_t> PrintedLabels;
+std::set<uint64_t> BBs = { 0x004003A3, 0x0040046B, 0x004005E0, 0x004005E8, 0x0040039D, 0x004002C2, 0x004002B6, 0x004002CF, 0x00400303, 0x0040047D, 0x0040047A ,0x004003AC, 0x40046B, 0x00400559, 0x00400556, 0x004004EA, 0x0040054E, 0x004003C8, 0x004003C5 ,0x00400D7D, 0x00400E8B, 0x0040027E, 0x004002C2, 0x40030C, 0x004003A6, 0x004004E7, 0x004003B6, 0x0040030B, 0x004003A9 };
+
+std::map<uint64_t, int> BBStack;
+
+bool hasStack(uint64_t VA) {
+	if (BBStack.find(VA) != BBStack.end()) {
+		return true;
+	}
+
+	return false;
+}
+
+bool isBBStart(uint64_t VA) {
+	if (BBs.find(VA) != BBs.end()) {
+		return true;
+	}
+
+	return false;
+}
+
+bool isPrintedBBLabel(uint64_t VA) {
+	if (PrintedLabels.find(VA) != PrintedLabels.end()) {
+		return true;
+	}
+
+	return false;
+}
+
+
+std::set<uint64_t> KnownAddresses;
+bool isKnownAddresses(uint64_t VA) {		
+	if (KnownAddresses.find(VA) != KnownAddresses.end()) {
+		return true;
+	}
+
+	return false;
+}
+
 typedef uint8_t byte;
 typedef int64_t longlong;
 typedef uint64_t ulonglong;
@@ -64,11 +107,13 @@ void printDebug(const char *fmt, ...) {
 }
 
 void printTaint(const char *fmt, ...) {
+	if (PrintTaint == true) {
 #ifdef TAINT
-	va_list argptr;
-	va_start(argptr, fmt);
-	vprintf(fmt, argptr);
-	va_end(argptr);
+		va_list argptr;
+		va_start(argptr, fmt);
+		vprintf(fmt, argptr);
+		va_end(argptr);
+	}
 #endif
 }
 
@@ -262,7 +307,26 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 
   while (op_ptr < op_end) {
     //printf("%08X ", getBinaryVA(op_ptr));
-    addAddr((uint64_t) op_ptr);
+
+		uint64_t VA = getBinaryVA(op_ptr);		
+
+		if (VA == 0x0400559) {
+			int a = 0;
+		}
+
+		if (isBBStart(VA) && isPrintedBBLabel(VA) == false) {
+				// print lable
+				printf("_%08X:\n", VA);			
+				PrintedLabels.insert(VA);
+		}
+
+		if (isKnownAddr((uint64_t)op_ptr)) {
+			PrintTaint = false;
+		}
+		else {
+			PrintTaint = true;
+			addAddr((uint64_t)op_ptr);
+		}    
 
     enum dwarf_location_atom op = (dwarf_location_atom)*op_ptr++;
     _Unwind_Word result;
@@ -306,7 +370,9 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
     case DW_OP_lit31:
       printDebug("result%d = %d;\n", stack_elt, op - DW_OP_lit0);
 
-			T.removeTaint(stack_elt);
+			printTaint("S%d = %d;\n", stack_elt, op - DW_OP_lit0);
+			T.taint(stack_elt);
+			//T.removeTaint(stack_elt);
 
       result = op - DW_OP_lit0;
       break;
@@ -337,14 +403,21 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
     case DW_OP_const1u:
       // printDebug("DW_OP_const1u ");
 
+			/*
 			if (!T.isTainted((uint64_t)op_ptr)) {
 				T.removeTaint(stack_elt);
 			}
 			else {
 				T.taint(stack_elt);
 			}
+			*/			
 
       result = read_1u(op_ptr);
+
+			//New follow the way of the constant
+			printTaint("S%d = 0x%02X;\n", stack_elt, result);
+			T.taint(stack_elt);
+
       op_ptr += 1;
       // printDebug("0x%X\n", result);
       break;
@@ -369,6 +442,8 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
     case DW_OP_const4u:
       // printDebug("DW_OP_const4u ");
 
+			result = read_4u(op_ptr);
+
 		// Check for anti taint 
 		{
 			// Check for anti taint 
@@ -378,16 +453,20 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 					T.taint(stack_elt);				
 			}
 			else {
+				/*
 				if (!T.isTainted((uint64_t)op_ptr)) {
 					T.removeTaint(stack_elt);
 				}
 				else {
 					T.taint(stack_elt);
 				}
+				*/
+				//New follow the way of the constant
+				printTaint("S%d = 0x%08X;\n", stack_elt, (uint32_t) result);
+				T.taint(stack_elt);
 			}
 		}			
-
-      result = read_4u(op_ptr);
+      
       op_ptr += 4;
       //printDebug("%llX\n", result);
       break;
@@ -401,12 +480,17 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
       //printDebug("DW_OP_const8u *(%llX) = ", op_ptr);
       result = read_8u(op_ptr);
 
+			/*
 			if (!T.isTainted((uint64_t)op_ptr)) {
 				T.removeTaint(stack_elt);
 			}
 			else {
 				T.taint(stack_elt);
-			}
+			}*/
+
+			//New follow the way of the constant
+			printTaint("S%d = 0x%016llX;\n", stack_elt, result);
+			T.taint(stack_elt);
 
       //printDebug("%llX\n", result);
       op_ptr += 8;
@@ -523,7 +607,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 			}
 			else {
 				T.taint(stack_elt);
-				printTaint("S%d = S%d; // DW_OP_dup %llX\n", stack_elt, stack_elt-1, stack[stack_elt - 1]);
+				printTaint("S%d = S%d;\n", stack_elt, stack_elt-1);
 			}
 
       gcc_assert(stack_elt);
@@ -549,7 +633,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 			}
 			else {
 				T.taint(stack_elt);
-				printTaint("S%d = S%d; // %llX DW_OP_pick \n", stack_elt, stack_elt - 1 - offset, stack[stack_elt - 1 - offset]);
+				printTaint("S%d = S%d;\n", stack_elt, stack_elt - 1 - offset);
 			}
 
       //gcc_assert(offset < stack_elt - 1);
@@ -610,43 +694,43 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
 			if (T.isTainted(stack_elt - 1) && T.isTainted(stack_elt - 2) && T.isTainted(stack_elt - 3)) {
 				// Do nothing
 				//111
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}
 			else if (!T.isTainted(stack_elt - 1) && T.isTainted(stack_elt - 2) && T.isTainted(stack_elt - 3)) {
 				//011
 				T.removeTaint(stack_elt - 3);
 				T.taint(stack_elt - 2);
 				T.taint(stack_elt - 1);
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}
 			else if (T.isTainted(stack_elt - 1) && !T.isTainted(stack_elt - 2) && T.isTainted(stack_elt - 3)) {
 				//101
 				T.removeTaint(stack_elt - 1);
 				T.taint(stack_elt - 2);
 				T.taint(stack_elt - 3);
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}
 			else if (T.isTainted(stack_elt - 1) && T.isTainted(stack_elt - 2) && !T.isTainted(stack_elt - 3)) {
 				//110
 				T.removeTaint(stack_elt - 2);
 				T.taint(stack_elt - 1);
 				T.taint(stack_elt - 3);
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}	else if (!T.isTainted(stack_elt - 1) && !T.isTainted(stack_elt - 2) && T.isTainted(stack_elt - 3)) {
 				//001
 				T.removeTaint(stack_elt - 3);
 				T.taint(stack_elt - 2);				
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}	else if (T.isTainted(stack_elt - 1) && !T.isTainted(stack_elt - 2) && !T.isTainted(stack_elt - 3)) {
 				//100
 				T.removeTaint(stack_elt - 1);
 				T.taint(stack_elt - 3);
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}	else if (!T.isTainted(stack_elt - 1) && T.isTainted(stack_elt - 2) && !T.isTainted(stack_elt - 3)) {
 				//010
 				T.removeTaint(stack_elt - 2);
 				T.taint(stack_elt - 1);
-				printTaint("DW_OP_rot(S%d, S%d, S%d); //%llX %llX %llX\n", stack_elt - 1, stack_elt - 2, stack_elt - 3, t1, t2, t3);
+				printTaint("DW_OP_rot(S%d, S%d, S%d);\n", stack_elt - 1, stack_elt - 2, stack_elt - 3);
 			}
 
       printDebug("DW_OP_rot(%d, %d, %d); //%llX %llX %llX\n",stack_elt - 1,stack_elt - 2,stack_elt - 3, t1, t2, t3);
@@ -673,38 +757,26 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
       case DW_OP_deref: {
         //printDebug("result = read_pointer(0x%llX); //DW_OP_deref\n", result);
         void *ptr = (void *)(_Unwind_Ptr)result;
+				result = (_Unwind_Ptr)read_pointer(ptr);
 
 				if (T.isTainted(result)) {
 					T.taint(stack_elt);					
-					printTaint("S%d = DW_OP_deref(0x%llX); // S%d DW_OP_deref\n", stack_elt, result, stack_elt);
+					printTaint("S%d = DW_OP_deref(0x%llX); // S%d %llX\n", stack_elt, (uint64_t)ptr, (uint64_t)ptr,  result);
 				}
 				else if (T.isTainted(stack_elt)) {
 					T.taint(stack_elt);
-					printTaint("S%d = DW_OP_deref(S%d); // %llX DW_OP_deref\n", stack_elt, stack_elt, result);
+					printTaint("S%d = DW_OP_deref(S%d); // %llX %llX\n", stack_elt, stack_elt, (uint64_t)ptr, result);
 				}
 				else {
-					T.removeTaint(stack_elt);
+					//T.removeTaint(stack_elt);
+					// Set constant					
+					printTaint("S%d = 0x%016llX; // S%d %llX\n", stack_elt, result, (uint64_t)ptr, result);
+					T.taint(stack_elt);
 				}
 
-        result = (_Unwind_Ptr)read_pointer(ptr);
       } break;
 
       case DW_OP_deref_size: {
-				if (T.isTainted(result)) {
-					T.taint(stack_elt);
-					printTaint("S%d = DW_OP_deref_size(%d, 0x%llX); // S%d DW_OP_deref\n", stack_elt, *op_ptr, result, stack_elt);
-				}
-				else if (T.isTainted(stack_elt)) {					
-					printTaint("S%d = DW_OP_deref_size(%d, S%d); // %llX DW_OP_deref\n", stack_elt, *op_ptr, stack_elt, result);
-
-					// Dont taint as the table seems to be const
-					T.taint(stack_elt);
-					//T.removeTaint(stack_elt);
-				}
-				else {
-					T.removeTaint(stack_elt);
-				}
-
         //printDebug("DW_OP_deref_size\n");
         void *ptr = (void *)(_Unwind_Ptr)result;
         switch (*op_ptr++) {
@@ -723,6 +795,23 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
         default:
           gcc_unreachable();
         }
+
+				if (T.isTainted(result)) {
+					T.taint(stack_elt);
+					printTaint("S%d = DW_OP_deref_size(%d, 0x%llX); // S%d %llX\n", stack_elt, *op_ptr, (uint64_t)ptr, stack_elt, result);
+				}
+				else if (T.isTainted(stack_elt)) {
+					printTaint("S%d = DW_OP_deref_size(%d, S%d); // %llX %llX\n", stack_elt, *op_ptr, stack_elt, (uint64_t)ptr, result);
+
+					// The table is not the same all the time
+					T.taint(stack_elt);
+				}
+				else {
+					// Constant so taint
+					printTaint("S%d = 0x%016llX; // S%d\n", stack_elt, result, (uint64_t)ptr);
+					T.taint(stack_elt);					
+				}
+
       } break;
 
       case DW_OP_abs:
@@ -834,7 +923,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
         printDebug("result%d = DW_OP_and(%d, %d); // %llX & %llX = %llX\n", stack_elt, stack_elt, stack_elt + 1 ,second, first, first & second);
 				if (PrintTaint) {
 					//printTaint("S%d = S%d & S%d; // %llX & %llX = %llX\n", stack_elt, stack_elt, stack_elt + 1, second, first, first & second);
-					printTaint("S%d = %s & %s; // %llX & %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first & second);
+					printTaint("S%d = %s & %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second & first;
@@ -844,7 +933,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    (_Unwind_Sword)second / (_Unwind_Sword)first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s / %s; // %llX / %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first / second);
+					printTaint("S%d = %s / %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
       
         result = (_Unwind_Sword)second / (_Unwind_Sword)first;
@@ -854,7 +943,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second - first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s - %s; // %llX - %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first - second);
+					printTaint("S%d = %s - %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second - first;
@@ -864,7 +953,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second % first);
       
 				if (PrintTaint) {
-					printTaint("S%d = %s % %s; // %llX % %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first % second);
+					printTaint("S%d = %s % %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second % first;
@@ -874,7 +963,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second * first);
       
 				if (PrintTaint) {
-					printTaint("S%d = %s * %s; // %llX * %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first * second);
+					printTaint("S%d = %s * %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second * first;
@@ -884,7 +973,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second | first);
       
 				if (PrintTaint) {
-					printTaint("S%d = %s | %s; // %llX | %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first | second);
+					printTaint("S%d = %s | %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second | first;
@@ -893,7 +982,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
         printDebug("result%d = DW_OP_plus(%d, %d); // 0x%016llX + 0x%016llX = 0x%016llX\n", stack_elt, stack_elt, stack_elt + 1, first, second, second+first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s + %s; // %llX + %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, second + first);
+					printTaint("S%d = %s + %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second + first;
@@ -903,7 +992,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second << first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s << %s; // %llX << %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, second << first);
+					printTaint("S%d = %s << %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second << first;
@@ -913,7 +1002,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second >> first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s >> %s; // %llX >> %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first >> second);
+					printTaint("S%d = %s >> %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second >> first;
@@ -923,7 +1012,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
                    second >> first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s >> %s; // %llX >> %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first >> second);
+					printTaint("S%d = %s >> %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = (_Unwind_Sword)second >> first;
@@ -933,7 +1022,7 @@ static _Unwind_Word execute_stack_op(const unsigned char *op_ptr,
         second ^ first);
 
 				if (PrintTaint) {
-					printTaint("S%d = %s ^ %s; // %llX ^ %llX = %llX\n", stack_elt, Op1.c_str(), Op2.c_str(), second, first, first ^ second);
+					printTaint("S%d = %s ^ %s;\n", stack_elt, Op1.c_str(), Op2.c_str());
 				}
 
         result = second ^ first;
@@ -975,10 +1064,29 @@ break;
     } break;
 
     case DW_OP_skip:
-      printDebug("DW_OP_skip(); // 0x%16X\n", op_ptr);
+      printDebug("DW_OP_skip();\n");			
+
       offset = read_2s(op_ptr);
       op_ptr += 2;
       op_ptr += offset;
+		
+
+			if (PrintTaint == true) {
+				if (hasStack(getBinaryVA(op_ptr)) == false) {
+					BBStack[getBinaryVA(op_ptr)] = stack_elt;
+				}
+				else {
+					if (BBStack[getBinaryVA(op_ptr)] != stack_elt) {
+						printf("// STACK CHANGE: S%d -> S%d\n", BBStack[getBinaryVA(op_ptr)], stack_elt);
+					}
+				}
+
+				if (isKnownAddr((uint64_t) op_ptr) == true) {
+					// Jump to a known VA
+					printTaint("goto _%08X; // Stack %i\n", getBinaryVA(op_ptr), stack_elt);
+				}
+			}
+
       goto no_push;
 
     case DW_OP_bra:
@@ -991,8 +1099,41 @@ break;
       offset = read_2s(op_ptr);
       op_ptr += 2;
 
-      printDebug("DW_OP_bra(%d); // 0x%llX != 0 = %d\n", stack_elt, stack[stack_elt],
-        stack[stack_elt] != 0);
+      printDebug("DW_OP_bra(%d);\n", stack_elt);
+
+			if (PrintTaint == true) {
+				//if (isKnownAddr((uint64_t)op_ptr) == true) {
+					// Jump to a known VA
+					//printTaint("goto: _%08X\n", getBinaryVA(op_ptr));
+					uint64_t TrueVA = getBinaryVA(op_ptr);
+					uint64_t FalseVA = getBinaryVA(op_ptr + offset);
+
+					if (hasStack(TrueVA) == false) {
+						BBStack[TrueVA] = stack_elt;
+					}
+					else {
+						if (BBStack[TrueVA] != stack_elt) {
+							printf("// %08X STACK CHANGE: S%d -> S%d\n", TrueVA, BBStack[TrueVA], stack_elt);
+						}
+					}
+
+					if (hasStack(FalseVA) == false) {
+						BBStack[TrueVA] = stack_elt;
+					}
+					else {
+						if (BBStack[FalseVA] != stack_elt) {
+							printf("// %08X STACK CHANGE: S%d -> S%d\n", FalseVA, BBStack[FalseVA], stack_elt);
+						}
+					}
+
+					printTaint("if (S%d == 0) goto _%08X; else goto _%08X;\n", stack_elt, TrueVA, FalseVA);
+					if (isPrintedBBLabel(TrueVA) == false) {
+						printTaint("_%08X:\n", TrueVA);
+						PrintedLabels.insert(TrueVA);
+					}
+				//}
+			}
+
 
       if (stack[stack_elt] != 0)
         op_ptr += offset;
@@ -1024,7 +1165,7 @@ int main(int argc, char **argv) {
   const uint8_t *Binary = decrypted_file;
 
   // printDebug
-  printDebug("// Binary %llX - %llX\n", Binary, Binary + decrypted_file_len);
+  //printDebug("// Binary %llX - %llX\n", Binary, Binary + decrypted_file_len);
   BinaryStart = (uint64_t)Binary;
   BinaryEnd = (uint64_t)Binary + decrypted_file_len;
 
@@ -1063,8 +1204,8 @@ int main(int argc, char **argv) {
   SimArgv[0] = (uint64_t *)0x1111111111111111;
   SimArgv[1] = (uint64_t *)Flag;
 
-  printDebug("// SimArgv = 0x%016llX\n", SimArgv);
-  printDebug("// SimArgv[1] = 0x%016llX\n", SimArgv[1]);
+  //printDebug("// SimArgv = 0x%016llX\n", SimArgv);
+  //printDebug("// SimArgv[1] = 0x%016llX\n", SimArgv[1]);
 
   // Set reg values
   uint64_t **ppArgv = (uint64_t **)&SimArgv;
