@@ -413,22 +413,23 @@ INLINE uint64_t Stack[StackPtr -1]; //uint64_t Stack[44], int Ptr) {
   return Stack[Ptr];
 }
 */
-
+/*
 INLINE uint64_t DW_OP_pick(uint64_t Stack[44], uint64_t StackPtr, uint64_t Offset) {
 #ifdef Unroll
   printf("S%d = S%d;\n", StackPtr, StackPtr - 1 - Offset);
 #endif
   return Stack[StackPtr - 1 - Offset];
 }
+*/
 
-int VM_Func(const char *Flag) {
+uint64_t VM_Func(uint64_t Flag[4]) {
 	uint64_t Stack[44];
 
 	// The Stack Ptr
-	uint8_t StackPtr = 2;
+	uint64_t StackPtr = 2;
 
   // Part 1
-  Stack[StackPtr] = *(const uint64_t *)Flag;
+  Stack[StackPtr] = Flag[0];
 #ifdef Unroll
   printf("S%d = *(const uint64_t *)Flag;\n", StackPtr);
 #endif
@@ -440,7 +441,7 @@ _00400263:
   // Part 2  0x3232313131313131
   StackPtr = 3;
   // Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);
-  Stack[StackPtr] = *(const uint64_t *)(Flag + 8);
+  Stack[StackPtr] = Flag[1];
 
 #ifdef Unroll
   printf("S%d = *(const uint64_t *)(Flag + 8);\n", StackPtr);
@@ -453,7 +454,7 @@ _00400269:
   // Part 3 //0x3333323232323232
   // Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);
   StackPtr = 4;
-  Stack[StackPtr] = *(const uint64_t *)(Flag + 16);
+  Stack[StackPtr] = Flag[2];
 
 #ifdef Unroll
   printf("S%d = *(const uint64_t *)(Flag + 16);\n", StackPtr);
@@ -468,7 +469,7 @@ _00400274:
   // Part 4 0x7d5a333333333333
   // Stack[StackPtr] = DW_OP_deref(Stack[StackPtr]);
   StackPtr = 5;
-  Stack[StackPtr] = *(const uint64_t *)(Flag + 24);
+  Stack[StackPtr] = Flag[3];
 
 #ifdef Unroll
   printf("S%d = *(const uint64_t *)(Flag + 24);\n", StackPtr);
@@ -481,7 +482,7 @@ _00400275:
   // Part 5 Last Byte (has to be ZERO !!!!)
   // Stack[StackPtr] = DW_OP_deref_size(1, Stack[StackPtr]);
   StackPtr = 5;
-  Stack[StackPtr] = *(const uint8_t *)(Flag + 32);
+	Stack[StackPtr] = 0; *(const uint8_t *)(Flag + 32);
 
 #ifdef Unroll
   printf("S%d = *(const uint8_t *)(Flag + 32);\n", StackPtr);
@@ -9129,8 +9130,10 @@ _004002B2:
   StackPtr++;
 _004002B3:
 	StackPtr--;
+	
 	printf("Result = S%d; // %llX\n", StackPtr, Stack[StackPtr]);
-	printf("printf(\"// Finale Check (X == 0) => %%d %%lX\\n\", %d, S%d); // _00400306 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
+	return Stack[StackPtr];
+	//printf("printf(\"// Finale Check (X == 0) => %%d %%lX\\n\", %d, S%d); // _00400306 %08llX\n", StackPtr, StackPtr, Stack[StackPtr]);
 	if (Stack[StackPtr] != 0)
 		goto _004002C2; //// DW_OP_bra 0x0000000C (0x004002B6, 0x004002C2)
 _004002B6:
@@ -9175,7 +9178,7 @@ int main(void) {
   SimArgv[1] = (uint64_t *)Flag;
 
 	printf("//%s\n", Flag);
-  uint64_t Result = VM_Func(Flag);
+  uint64_t Result = VM_Func((uint64_t*) Flag);
   printf("//Result %llX\n", Result);
 
   return 0;

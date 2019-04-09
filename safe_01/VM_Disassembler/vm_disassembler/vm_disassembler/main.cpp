@@ -11,7 +11,7 @@
 #include "df.h"
 #include "dwarf2.h"
 
-//#define LIFT
+#define LIFT
 
 struct Edge {
 	uint64_t NextVA;
@@ -35,7 +35,19 @@ int InstCount = 1;
 // The Stack Pointer
 int stack_elt = 1;
 
+// The line to print
 std::string Line;
+
+std::set<uint64_t> BasicBlocks;
+
+bool isKnownBB(uint64_t VA) {
+	if (BasicBlocks.find(VA) != BasicBlocks.end()) {
+		return true;
+	}
+
+	return false;
+}
+
 
 std::string getStackPtrStr() {
 	return "S" + std::to_string(stack_elt);
@@ -60,7 +72,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 	Line = "";
 	char buffer[1024] = { 0 };
 	sprintf(buffer, "_%08X:\t\t", (uint64_t)getBinaryVA(op_ptr));
-	Line += buffer;
+	//Line += buffer;
 
 	enum dwarf_location_atom op = (dwarf_location_atom)* op_ptr++;
 	_uleb128_t reg, utmp;
@@ -332,7 +344,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 	case DW_OP_dup:
 #ifdef LIFT		
-		sprintf(buffer, "Stack[StackPtr] = DW_OP_dup(StackPtr-1);StackPtr++;\n");
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_dup(Stack, StackPtr-1);StackPtr++;\n");
 #else
 		sprintf(buffer, "S%d = DW_OP_dup(S%d);\n", stack_elt, stack_elt-1);
 #endif
@@ -364,7 +376,7 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		offset = *op_ptr++;
 		//sprintf(buffer, "Stack[StackPtr] = Stack[StackPtr - 1 - %d];StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);		
 #ifdef LIFT		
-		sprintf(buffer, "Stack[StackPtr] = DW_OP_pick(%d);StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
+		sprintf(buffer, "Stack[StackPtr] = DW_OP_pick(Stack, StackPtr, %d);StackPtr++; // DW_OP_pick(S%d)\n", offset, stack_elt - 1 - offset);
 #else
 		sprintf(buffer, "S%d = DW_OP_pick(%d); // %i\n", stack_elt, offset, stack_elt - 1 - offset);
 #endif
@@ -780,6 +792,8 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 #endif											
 		Line += buffer;
 		E.push_back(Edge(stack_elt, (uint64_t)op_ptr));
+
+		BasicBlocks.insert((uint64_t) op_ptr);
 		return E;
 	}
 	break;
@@ -796,12 +810,14 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 
 		op_ptr += 2;
 #ifdef LIFT		
-		sprintf(buffer, "if (Stack[StackPtr] != 0) goto _%08X; //", getBinaryVA(op_ptr + offset));
+		//sprintf(buffer, "if (Stack[StackPtr] != 0) return 0x%08X; else return 0x%08X; ", getBinaryVA(op_ptr + offset), getBinaryVA(op_ptr));
+		sprintf(buffer, "if (Stack[StackPtr] != 0) goto _%08X; else goto _%08X; ", getBinaryVA(op_ptr + offset), getBinaryVA(op_ptr));
+		Line += buffer;
 		sprintf(buffer, "// DW_OP_bra 0x%08X (0x%08X, 0x%08X)\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
 #else
 		sprintf(buffer, "DW_OP_bra(0x%08X); // (0x%08X, 0x%08X);\n", offset, getBinaryVA(op_ptr), getBinaryVA(op_ptr + offset));
 		// Reset stack as we reach a new BB after that
-		stack_elt = 1;
+		//stack_elt = 1;
 #endif			
 		Line += buffer;
 
@@ -809,11 +825,11 @@ Edges disassemble(const unsigned char* op_ptr, Edges &E) {
 		//	op_ptr += offset;
 		//goto no_push;
 
-		// PG TODO return 2 offsets
-		//return getBinaryVA(op_ptr);
-
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr)));
 		E.push_back(Edge(stack_elt, getBinaryVA(op_ptr + offset)));
+
+		BasicBlocks.insert(getBinaryVA(op_ptr));
+		BasicBlocks.insert(getBinaryVA(op_ptr + offset));
 		return E;
 
 	case DW_OP_nop:
@@ -849,6 +865,7 @@ int main(int argc, char** argv) {
 	EdgeMap[PC] = Edge(1, PC);
 	Known.insert(PC);
 	Worklist.insert(PC);
+
 	while (!Worklist.empty()) {
 		uint64_t CurPC = *Worklist.begin();
 		Worklist.erase(CurPC);
@@ -861,9 +878,6 @@ int main(int argc, char** argv) {
 		disassemble((const unsigned char*)BinaryStart + CurPC - BinaryImageBase, Edges);
 		Disassembly[CurPC] = Line;
 		for (auto &E : Edges) {
-			if (E.NextVA == 0x04004E7) {
-				int t = 1;
-			}
 			// Thats our end
 			if (E.NextVA < 0x403216) {
 				if (Known.end() == std::find(Known.begin(), Known.end(), E.NextVA)) {
@@ -878,8 +892,36 @@ int main(int argc, char** argv) {
 
 
 	//Print disassembly
+	/*
 	for (auto &O : Disassembly) {
 		printf("%s", O.second.c_str());
+	}*/
+	
+
+	// Create the functions BBs
+	printf("uint64_t VMFunc(uint64_t Flag[4]) {\n");
+	printf("uint64_t Stack[44];\n");
+	printf("uint64_t StackPtr = 1;\n\n");
+	for (auto &BB : BasicBlocks) {
+		auto It = Disassembly.find(BB);
+		if (It == Disassembly.end())
+			continue;
+
+		printf("_%08X: {\n", BB);		
+		while (It != Disassembly.end()) {
+			auto LastIt = It;
+			printf("%s", It->second.c_str());
+			It++;
+			if (It == Disassembly.end() || isKnownBB(It->first)) {
+				if (LastIt->second.find("goto") == std::string::npos) {
+					//printf("goto _%08X;\n", EdgeMap[LastIt->first].NextVA);
+				}
+				printf("};\n\n");
+				break;
+			}
+		}
 	}
+	printf("};\n\n");
+
 	return 0;
 }

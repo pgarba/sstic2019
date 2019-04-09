@@ -1195,7 +1195,7 @@ int main(int argc, char **argv) {
   }
 
   char Flag[] = "SSTIC{1111111122222222333333334}";
-  memcpy(Flag+6, FlagInner, 25);
+  //memcpy(Flag+6, FlagInner, 25);
   
   // Trigger error
   //char Flag[] = "SSTIC{11111111222222223333333344}";
